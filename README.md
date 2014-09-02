@@ -5,12 +5,10 @@
 ## 简介
 
 * 支持的词典：
-
     * 系统词典，仅支持朗道英汉/汉英词典5.0
     * 有道在线词典
     * 爱词霸在线词典
     * 百度在线词典
-
 * 支持英汉、汉英互查
 * 支持音标，默认显示美式音标
 * 使用系统 TTS 引擎发音
@@ -19,7 +17,13 @@
 * 缓存查询结果，方便下次查询
 * 支持快捷键取词
 
+## 截图
+
+![screenshot](https://github.com/liberize/alfred-dict-workflow/raw/master/screenshot.gif)
+
 ## 用法
+
+如果没有安装朗道英汉/汉英词典5.0，请先[安装](http://pan.baidu.com/s/1qWx4mV6).
 
 关键词为 `dict`，使用
 
