@@ -23,19 +23,17 @@
 
 ## 用法
 
-如果没有安装朗道英汉/汉英词典5.0，请先[安装](http://pan.baidu.com/s/1qWx4mV6).
+如果没有安装朗道英汉/汉英词典5.0，请先[下载](http://pan.baidu.com/s/1qWx4mV6)，然后复制到 `~/Library/Dictionaries/` 目录。
 
-关键词为 `dict`，使用
+关键词为 `dict`，默认使用系统词典，使用以下格式指定词典：
 
     dict {word} @ {dict}
-
-在指定词典中查询。
 
 词典代号及切换快捷键：
 
 词典      | 代号        | 快捷键
 -------- | ----------- | ---------
-系统词典  | sys, system  | `⌘` `↩`
+系统     | sys, system  | `⌘` `↩`
 有道     | yd, youdao   |  `⌥` `↩`
 爱词霸   | cb, iciba     | `⌃` `↩`
 百度     | bd, baidu    | `⇧` `↩`
