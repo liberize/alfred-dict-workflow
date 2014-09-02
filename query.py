@@ -38,7 +38,9 @@ def query(dictionary, word, dict_cache):
 feedback = Feedback()
 argc = len(sys.argv)
 if argc == 1 or (argc == 2 and sys.argv[1] == ''):
-    feedback.add_item(title='Dict - Lookup Word', subtitle='Format: "word @ dict". Available dicts are "sys", "yd", "cb", "bd".', valid=False)
+    feedback.add_item(title=u'Dict - Lookup Word',
+                      subtitle=u'Format: "word @ dict". Available dicts are "sys", "yd", "cb", "bd".',
+                      valid=False)
 elif argc == 2:
     secs = sys.argv[1].split('@')
     secc = len(secs)
@@ -55,15 +57,20 @@ elif argc == 2:
     dict_cache = Cache(os.path.join(base_dir, bundle_id))
     try:
         result = query(dictionary, word, dict_cache)
-        if result and len(result) > 0:
-            feedback.add_item(title=result[0], subtitle='Press "enter" to spell word or "ctrl/alt/shift + enter" to lookup word in other dicts.', arg=u'{} > say'.format(word.decode('utf-8')), valid=True)
+        if result:
+            feedback.add_item(title=result[0],
+                              subtitle=u'Press "↩" to pronounce word or "⌘/⌥/⌃/⇧ + ↩" to lookup word in other dicts.',
+                              arg=u'{} > say'.format(word.decode('utf-8')),
+                              valid=True)
             for item in result[1:]:
                 if not cndict.is_english(word) and cndict.is_english(item.encode('utf-8')):
                     feedback.add_item(title=item, arg=u'{} > copy'.format(item), valid=True)
                 else:
                     feedback.add_item(title=item, valid=False)
         else:
-            feedback.add_item(title='Dict - Lookup Word', subtitle='Word "{}" doesn\'t exist in dict "{}".'.format(word, dictionary), valid=False)
+            feedback.add_item(title=u'Dict - Lookup Word',
+                              subtitle=u'Word "{}" doesn\'t exist in dict "{}".'.format(word.decode('utf-8'), dictionary.decode('utf-8')),
+                              valid=False)
     except cndict.DictLookupError, e:
         feedback.add_item(title=word, subtitle='Error: {}'.format(e), valid=False)
 else:

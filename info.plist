@@ -184,7 +184,7 @@
 				<key>keyword</key>
 				<string>dict</string>
 				<key>runningsubtext</key>
-				<string>Please Wait ...</string>
+				<string>Please wait ...</string>
 				<key>script</key>
 				<string>python ./query.py "{query}"</string>
 				<key>subtext</key>
