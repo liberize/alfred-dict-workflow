@@ -82,19 +82,18 @@ def youdao_lookup(word):
             50: 'key is invalid.'
         }
         raise DictLookupError(err_msg.get(err_code, 'unkown error.'))
-    basic = data.get('basic', {})
-    if not basic:
-        return []
     result = []
-    phonetic = basic.get('phonetic', '')
-    if phonetic:
-        result.append('{} /{}/'.format(word, phonetic))
-    if is_english(word):
-        result.extend(basic.get('explains', []))
-    else:
-        for explain in basic.get('explains', []):
-            pos = explain.rfind(']')
-            result.append(explain[pos+1:] if pos >= 0 else explain)
+    basic = data.get('basic', {})
+    if basic:
+        if is_english(word):
+            result.extend(basic.get('explains', []))
+        else:
+            for explain in basic.get('explains', []):
+                pos = explain.rfind(']')
+                result.append(explain[pos+1:] if pos >= 0 else explain)
+        if result:
+            phonetic = basic.get('phonetic', '')
+            result.insert(0, '{}{}'.format(word, ' /{}/'.format(phonetic) if phonetic else ''))
     return result
 
 
@@ -113,20 +112,20 @@ def iciba_lookup(word):
     result = []
     symbol = data.get('symbols', [{}])[0]
     if is_english(word):
-        phonetic = symbol.get('ph_am', '')
-        if phonetic:
-            result.append('{} /{}/'.format(word, phonetic))
         for elem in symbol.get('parts', []):
             result.append('{} {}'.format(elem.get('part', ''), '；'.join(elem.get('means', []))))
+        if result:
+            phonetic = symbol.get('ph_am', '')
+            result.insert(0, '{}{}'.format(word, ' /{}/'.format(phonetic) if phonetic else ''))
     else:
-        phonetic = symbol.get('word_symbol', '')
-        if phonetic:
-            result.append('{} /{}/'.format(word, phonetic))
         elem = symbol.get('parts', [{}])[0]
         for mean in elem.get('means', []):
             word_mean = mean.get('word_mean', '')
             if word_mean:
                 result.append(word_mean)
+        if result:
+            phonetic = symbol.get('word_symbol', '')
+            result.insert(0, '{}{}'.format(word, ' /{}/'.format(phonetic) if phonetic else ''))
     return result
 
 
@@ -152,23 +151,22 @@ def baidu_lookup(word):
         err_msg = data.get('errmsg', '')
         err_msg = err_msg.lower().replace('_', ' ') + '.' if err_msg != '' else 'unknown error.'
         raise DictLookupError(err_msg)
-    data = data.get('data', {})
-    if not data:
-        return []
     result = []
-    symbol = data.get('symbols', [{}])[0]
-    if is_english(word):
-        phonetic = symbol.get('ph_am', '')
-        if phonetic:
-            result.append('{} /{}/'.format(word, phonetic))
-        for elem in symbol.get('parts', []):
-            result.append('{} {}'.format(elem.get('part', ''), '；'.join(elem.get('means', []))))
-    else:
-        phonetic = symbol.get('ph_zh', '')
-        if phonetic:
-            result.append('{} /{}/'.format(word, phonetic))
-        elem = symbol.get('parts', [{}])[0]
-        result.extend(elem.get('means', []))
+    data = data.get('data', {})
+    if data:
+        symbol = data.get('symbols', [{}])[0]
+        if is_english(word):
+            for elem in symbol.get('parts', []):
+                result.append('{} {}'.format(elem.get('part', ''), '；'.join(elem.get('means', []))))
+            if result:
+                phonetic = symbol.get('ph_am', '')
+                result.insert(0, '{}{}'.format(word, ' /{}/'.format(phonetic) if phonetic else ''))
+        else:
+            elem = symbol.get('parts', [{}])[0]
+            result.extend(elem.get('means', []))
+            if result:
+                phonetic = symbol.get('ph_zh', '')
+                result.insert(0, '{}{}'.format(word, ' /{}/'.format(phonetic) if phonetic else ''))
     return result
 
 

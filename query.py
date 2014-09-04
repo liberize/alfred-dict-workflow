@@ -70,7 +70,8 @@ elif argc == 2:
         else:
             feedback.add_item(title=u'Dict - Lookup Word',
                               subtitle=u'Word "{}" doesn\'t exist in dict "{}".'.format(word.decode('utf-8'), dictionary.decode('utf-8')),
-                              valid=False)
+                              arg=u'{} > say'.format(word.decode('utf-8')),
+                              valid=True)
     except cndict.DictLookupError, e:
         feedback.add_item(title=word, subtitle='Error: {}'.format(e), valid=False)
 else:
