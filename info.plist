@@ -4,6 +4,8 @@
 <dict>
 	<key>bundleid</key>
 	<string>me.liberize.dict</string>
+	<key>category</key>
+	<string>Productivity</string>
 	<key>connections</key>
 	<dict>
 		<key>1CBAA26B-7D1D-47B5-A997-170596301266</key>
@@ -52,6 +54,14 @@
 				<key>modifiersubtext</key>
 				<string>Lookup this word in system dict.</string>
 			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>3E2DFED0-0EEB-4957-ADB0-A804CBBE3747</string>
+				<key>modifiers</key>
+				<integer>8388608</integer>
+				<key>modifiersubtext</key>
+				<string>Lookup this word in bing dict.</string>
+			</dict>
 		</array>
 		<key>CF3B3202-CBC6-459A-80F8-4BD2D77EBAC6</key>
 		<array/>
@@ -81,7 +91,7 @@
 	<key>createdby</key>
 	<string>liberize</string>
 	<key>description</key>
-	<string>Lookup word in system dict, youdao dict, iciba dict or baidu dict.</string>
+	<string>Lookup word in system dict, youdao dict, iciba dict, baidu dict or bing dict.</string>
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
@@ -157,7 +167,7 @@
 				<key>hotkey</key>
 				<integer>2</integer>
 				<key>hotmod</key>
-				<integer>1179648</integer>
+				<integer>393216</integer>
 				<key>hotstring</key>
 				<string>D</string>
 				<key>leftcursor</key>
@@ -188,7 +198,7 @@
 				<key>script</key>
 				<string>python ./query.py "{query}"</string>
 				<key>subtext</key>
-				<string>Lookup word in system dict, youdao dict, iciba dict or baidu dict.</string>
+				<string>Lookup word in system dict, youdao dict, iciba dict, baidu dict or bing dict.</string>
 				<key>title</key>
 				<string>Dict - Lookup Word</string>
 				<key>type</key>
@@ -254,6 +264,23 @@
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>100</integer>
+				<key>script</key>
+				<string>python ./actions.py "{query} @ by"</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>3E2DFED0-0EEB-4957-ADB0-A804CBBE3747</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string></string>
@@ -268,6 +295,11 @@
 		<dict>
 			<key>ypos</key>
 			<real>20</real>
+		</dict>
+		<key>3E2DFED0-0EEB-4957-ADB0-A804CBBE3747</key>
+		<dict>
+			<key>ypos</key>
+			<real>570</real>
 		</dict>
 		<key>89A1C4A1-2813-4CEC-B312-B728E54B5D59</key>
 		<dict>

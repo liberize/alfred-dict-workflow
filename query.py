@@ -39,7 +39,7 @@ feedback = Feedback()
 argc = len(sys.argv)
 if argc == 1 or (argc == 2 and sys.argv[1] == ''):
     feedback.add_item(title=u'Dict - Lookup Word',
-                      subtitle=u'Format: "word @ dict". Available dicts are "sys", "yd", "cb", "bd".',
+                      subtitle=u'Format: "word @ dict". Available dicts are "sys", "yd", "cb", "bd", "by".',
                       valid=False)
 elif argc == 2:
     secs = sys.argv[1].split('@')
