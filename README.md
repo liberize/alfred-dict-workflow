@@ -24,10 +24,6 @@
 
 ## 用法
 
-系统词典默认使用朗道词典，如果想切换为牛津词典，请编辑 `cndict/systemdict.py` 修改第 10 行：`DEFAULT_DICT_NAME = 'oxford'`.
-
-如果没有安装朗道词典，请先[下载](http://pan.baidu.com/s/1qWx4mV6)，然后复制到 `~/Library/Dictionaries/` 目录.
-
 关键词为 `dict`，默认使用系统词典，使用以下格式指定词典：
 
     dict {word} @ {dict}
@@ -40,6 +36,13 @@
 有道     | yd, youdao   |  `⌥` `↩`
 爱词霸   | cb, iciba     | `⌃` `↩`
 百度     | bd, baidu    | `⇧` `↩`
+必应     | by, bing     | `fn` `↩`
+
+
+系统词典默认使用朗道词典，如果想切换为牛津词典，请编辑 `cndict/systemdict.py` 修改第 10 行：`DEFAULT_DICT_NAME = 'oxford'`.
+如果想立即生效，请清空缓存：`~/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data/me.liberize.dict/`.
+
+如果没有安装朗道词典，请先[下载](http://pan.baidu.com/s/1qWx4mV6)，然后复制到 `~/Library/Dictionaries/` 目录.
 
 ## 联系我
 
