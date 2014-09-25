@@ -59,7 +59,7 @@ elif argc == 2:
         result = query(dictionary, word, dict_cache)
         if result:
             feedback.add_item(title=result[0],
-                              subtitle=u'Press "↩" to pronounce word or "⌘/⌥/⌃/⇧ + ↩" to lookup word in other dicts.',
+                              subtitle=u'Press "↩" to pronounce word or "⌘/⌥/⌃/⇧/fn + ↩" to lookup word in other dicts.',
                               arg=u'{} > say'.format(word.decode('utf-8')),
                               valid=True)
             for item in result[1:]:

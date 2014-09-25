@@ -40,9 +40,12 @@
 
 
 系统词典默认使用朗道词典，如果想切换为牛津词典，请编辑 `cndict/systemdict.py` 修改第 10 行：`DEFAULT_DICT_NAME = 'oxford'`.
-如果想立即生效，请清空缓存：`~/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data/me.liberize.dict/`.
+
+修改或更新之后，如果想立即生效，请清空缓存：`~/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data/me.liberize.dict/`.
 
 如果没有安装朗道词典，请先[下载](http://pan.baidu.com/s/1qWx4mV6)，然后复制到 `~/Library/Dictionaries/` 目录.
+
+由于必应词典没有提供 API，只能通过解析 HTML 得到，因此速度可能稍慢。
 
 ## 联系我
 
