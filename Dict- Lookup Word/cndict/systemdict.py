@@ -7,7 +7,7 @@ import subprocess
 from utils import *
 
 DEFAULT_CMD = '{}/{}'.format(os.path.dirname(os.path.realpath(__file__)), 'systemdict')
-DEFAULT_DICT_NAME = 'landau'  # or 'oxford'
+DEFAULT_DICT_NAME = 'oxford'  # or 'oxford'
 
 
 def lookup(word, external_cmd=True, cmd=DEFAULT_CMD, dict_name=DEFAULT_DICT_NAME):
@@ -59,22 +59,24 @@ def lookup(word, external_cmd=True, cmd=DEFAULT_CMD, dict_name=DEFAULT_DICT_NAME
             'preposition': 'prep.',
             'conjunction': 'conj.',
             'exclamation': 'excl.',
-            'abbreviation': 'abbr.'
+            'abbreviation': 'abbr.',
+            'plural noun': 'pl.',
+            'modifier': 'mod.'
         } if is_eng else {
-            u'名词': u'名.',
-            u'动词': u'动.',
-            u'形容词': u'形.',
-            u'副词': u'副.',
-            u'数词': u'数.',
-            u'代词': u'代.',
-            u'介词': u'介.',
-            u'连词': u'连.',
-            u'叹词': u'叹.'
+            u'名词': u'n.',
+            u'动词': u'v.',
+            u'形容词': u'adj.',
+            u'副词': u'adv.',
+            u'数词': u'num.',
+            u'代词': u'pron.',
+            u'介词': u'prep.',
+            u'连词': u'conj.',
+            u'叹词': u'excl.'
         }
 
         ignore_list = [
             'Uncountable and countable', 'Countable', 'Uncountable', 'British', 'American',
-            'colloquial', 'euphemistic', 'dated'
+            'colloquial', 'euphemistic', 'dated', 'Linguistics'
         ] if is_eng else [
             u'方言', u'客套话', u'委婉语', u'书面语', u'俗语', u'比喻义', u'口语', u'惯用语'
         ]
@@ -111,7 +113,9 @@ def lookup(word, external_cmd=True, cmd=DEFAULT_CMD, dict_name=DEFAULT_DICT_NAME
                 phonetics = []
                 for match in re.finditer(r'[A-Z]\. \|(.*?)\| ?', definition):
                     phonetic = match.group(1).encode('utf-8').strip()
-                    phonetics.append('/{}/'.format(phonetic))
+                    phonetic = '/{}/'.format(phonetic)
+                    if phonetic not in phonetics:
+                        phonetics.append(phonetic)
                     start = match.start() + 3 - trimmed_len
                     end = match.end() - trimmed_len
                     definition = definition[:start] + definition[end:]
@@ -167,7 +171,7 @@ def lookup(word, external_cmd=True, cmd=DEFAULT_CMD, dict_name=DEFAULT_DICT_NAME
                                r'\[used .*?\]',
                                '', entry)
                 entry = re.sub(ur'({})'.format('|'.join(ignore_list)), '', entry)
-                entry = re.sub(r'\( *\)', '', entry)
+                entry = re.sub(r'\([ /]*\)', '', entry)
                 entry = re.sub(r' {2,}', ' ', entry).strip()
                 if is_eng:
                     entry = entry.replace(u' ;', u';')
