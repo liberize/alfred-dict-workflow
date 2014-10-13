@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
 import urllib
 import json
 from utils import *
@@ -43,3 +44,19 @@ def lookup(word):
             phonetic = basic.get('phonetic', '')
             result.insert(0, '{}{}'.format(word, ' /{}/'.format(phonetic) if phonetic else ''))
     return result
+
+
+def copy(item):
+    os.system("printf '{}' | pbcopy".format(item.replace("'", "\\'")))
+
+
+def open(word):
+    params = {
+        'q': word
+    }
+    url = '{}?{}'.format('http://dict.youdao.com/search', urllib.urlencode(params))
+    os.system('open {}'.format(url))
+
+
+def say(word):
+    os.system("say '{}'".format(word.replace("'", "\\'")))

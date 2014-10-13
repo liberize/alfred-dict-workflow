@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
 import urllib
 import json
 from utils import *
@@ -45,3 +46,19 @@ def lookup(word):
                 phonetic = symbol.get('ph_zh', '')
                 result.insert(0, '{}{}'.format(word, ' /{}/'.format(phonetic) if phonetic else ''))
     return result
+
+
+def copy(item):
+    os.system("printf '{}' | pbcopy".format(item.replace("'", "\\'")))
+
+
+def open(word):
+    params = {
+        'wd': word
+    }
+    url = '{}?{}'.format('http://dict.baidu.com/s', urllib.urlencode(params))
+    os.system('open {}'.format(url))
+
+
+def say(word):
+    os.system("say '{}'".format(word.replace("'", "\\'")))

@@ -3,11 +3,12 @@
 
 import os
 import re
+import urllib
 import subprocess
 from utils import *
 
 DEFAULT_CMD = '{}/{}'.format(os.path.dirname(os.path.realpath(__file__)), 'systemdict')
-DEFAULT_DICT_NAME = 'oxford'  # or 'oxford'
+DEFAULT_DICT_NAME = 'landau'  # or 'oxford'
 
 
 def lookup(word, external_cmd=True, cmd=DEFAULT_CMD, dict_name=DEFAULT_DICT_NAME):
@@ -194,3 +195,24 @@ def lookup(word, external_cmd=True, cmd=DEFAULT_CMD, dict_name=DEFAULT_DICT_NAME
         raise DictLookupError('dict name not valid.')
 
     return result
+
+
+def copy(item, dict_name=DEFAULT_DICT_NAME):
+    if dict_name == 'oxford':
+        match = re.match(r'[a-z]+\. (（.+）|［.+］)?(.+)', item)
+        if match:
+            item = match.group(2)
+    elif dict_name == 'landau':
+        match = re.match(r'【.+】 (.+)', item)
+        if match:
+            item = match.group(1)
+    os.system("printf '{}' | pbcopy".format(item.replace("'", "\\'")))
+
+
+def open(word):
+    url = 'dict://' + urllib.quote(word)
+    os.system('open {}'.format(url))
+
+
+def say(word):
+    os.system("say '{}'".format(word.replace("'", "\\'")))

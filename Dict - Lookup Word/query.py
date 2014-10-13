@@ -36,21 +36,23 @@ def query(dictionary, word, dict_cache):
 
 
 feedback = Feedback()
+sys.argv = [arg for arg in sys.argv if arg != '']
 argc = len(sys.argv)
-if argc == 1 or (argc == 2 and sys.argv[1] == ''):
+if argc == 1:
     feedback.add_item(title=u'Dict - Lookup Word',
                       subtitle=u'Format: "word @ dict". Available dicts are "sys", "yd", "cb", "bd", "by".',
                       valid=False)
 elif argc == 2:
-    secs = sys.argv[1].split('@')
-    secc = len(secs)
-    if secc == 1 or (secc == 2 and secs[1] == ''):
-        word = secs[0]
+    arg = sys.argv[1]
+    pos = arg.rfind('@')
+    if pos == -1:
+        word = arg.strip()
         dictionary = 'sys'
-    elif secc == 2:
-        word, dictionary = (sec.strip() for sec in secs)
     else:
-        sys.exit(1)
+        word = arg[:pos].strip()
+        dictionary = arg[pos+1:].strip()
+        if dictionary == '':
+            dictionary = 'sys'
     plist = plistlib.readPlist(os.path.abspath('./info.plist'))
     bundle_id = plist['bundleid'].strip()
     base_dir = os.path.expanduser('~/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data/')
@@ -58,20 +60,21 @@ elif argc == 2:
     try:
         result = query(dictionary, word, dict_cache)
         if result:
+            arg = u'{} @ {}'.format(word.decode('utf-8'), dictionary.decode('utf-8'))
             feedback.add_item(title=result[0],
-                              subtitle=u'Press "↩" to pronounce word or "⌘/⌥/⌃/⇧/fn + ↩" to lookup word in other dicts.',
-                              arg=u'{} > say'.format(word.decode('utf-8')),
+                              subtitle=u'Press "↩" to view full definition or "⌘/⌥/⌃/⇧/fn + ↩" to lookup word in other dicts.',
+                              arg=arg,
                               valid=True)
-            for item in result[1:]:
-                if not cndict.is_english(word) and cndict.is_english(item.encode('utf-8')):
-                    feedback.add_item(title=item, arg=u'{} > copy'.format(item), valid=True)
-                else:
+            if cndict.is_english(word):
+                for item in result[1:]:
                     feedback.add_item(title=item, valid=False)
+            else:
+                for item in result[1:]:
+                    feedback.add_item(title=item, arg=u'{} | {}'.format(arg, item), valid=True)
         else:
             feedback.add_item(title=u'Dict - Lookup Word',
                               subtitle=u'Word "{}" doesn\'t exist in dict "{}".'.format(word.decode('utf-8'), dictionary.decode('utf-8')),
-                              arg=u'{} > say'.format(word.decode('utf-8')),
-                              valid=True)
+                              valid=False)
     except cndict.DictLookupError, e:
         feedback.add_item(title=word, subtitle='Error: {}'.format(e), valid=False)
 else:

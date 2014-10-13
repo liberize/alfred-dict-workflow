@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
 import urllib
 import json
 from utils import *
@@ -36,3 +37,16 @@ def lookup(word):
             phonetic = symbol.get('word_symbol', '')
             result.insert(0, '{}{}'.format(word, ' /{}/'.format(phonetic) if phonetic else ''))
     return result
+
+
+def copy(item):
+    os.system("printf '{}' | pbcopy".format(item.replace("'", "\\'")))
+
+
+def open(word):
+    url = 'http://www.iciba.com/' + urllib.quote(word)
+    os.system('open {}'.format(url))
+
+
+def say(word):
+    os.system("say '{}'".format(word.replace("'", "\\'")))
