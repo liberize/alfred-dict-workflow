@@ -27,7 +27,7 @@ match = re.match(r'^(.*?) @ (.*?) (\| (.*) )?([@|>]) (.*?)$', sys.argv[1])
 if match:
     word, dictionary, _, item, operator, command = match.groups()
     if item:
-        cndict.copy(dictionary, item)
+        cndict.copy(dictionary, word, item)
         print 'Definition copied to clipboard.'
     else:
         if operator == '@':

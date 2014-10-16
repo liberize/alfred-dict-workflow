@@ -20,5 +20,9 @@ def convert(input):
         return input
 
 
+def escape(input):
+    return input.replace("%", "%%").replace("\\", "\\\\").replace("'", "\\'")
+
+
 class DictLookupError(Exception):
     pass

@@ -39,8 +39,8 @@ def lookup(word):
     return result
 
 
-def copy(item):
-    os.system("printf '{}' | pbcopy".format(item.replace("'", "\\'")))
+def copy(word, item):
+    os.system("printf '{}' | LANG=en_US.UTF-8 pbcopy".format(escape(item)))
 
 
 def open(word):

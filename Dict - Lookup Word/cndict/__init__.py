@@ -28,10 +28,10 @@ def lookup(dictionary, word):
         return None
 
 
-def copy(dictionary, item):
+def copy(dictionary, word, item):
     cndict = _load_module(dictionary)
     if cndict:
-        cndict.copy(item)
+        cndict.copy(word, item)
 
 
 def open(dictionary, word):

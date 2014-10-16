@@ -65,12 +65,8 @@ elif argc == 2:
                               subtitle=u'Press "↩" to view full definition or "⌘/⌥/⌃/⇧/fn + ↩" to lookup word in other dicts.',
                               arg=arg,
                               valid=True)
-            if cndict.is_english(word):
-                for item in result[1:]:
-                    feedback.add_item(title=item, valid=False)
-            else:
-                for item in result[1:]:
-                    feedback.add_item(title=item, arg=u'{} | {}'.format(arg, item), valid=True)
+            for item in result[1:]:
+                feedback.add_item(title=item, arg=u'{} | {}'.format(arg, item), valid=True)
         else:
             feedback.add_item(title=u'Dict - Lookup Word',
                               subtitle=u'Word "{}" doesn\'t exist in dict "{}".'.format(word.decode('utf-8'), dictionary.decode('utf-8')),

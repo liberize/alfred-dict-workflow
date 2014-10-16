@@ -57,11 +57,12 @@ def lookup(word):
     return result
 
 
-def copy(item):
-    match = re.match(r'[a-z]+\. (.+)', item)
-    if match:
-        item = match.group(1)
-    os.system("printf '{}' | pbcopy".format(item.replace("'", "\\'")))
+def copy(word, item):
+    if not is_english(word):
+        match = re.match(r'[a-z]+\. (.+)', item)
+        if match:
+            item = match.group(1)
+    os.system("printf '{}' | LANG=en_US.UTF-8 pbcopy".format(escape(item)))
 
 
 def open(word):
