@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os
-
 
 def is_english(word):
     for i in word:
@@ -20,13 +18,6 @@ def convert(input):
         return input.encode('utf-8')
     else:
         return input
-
-
-def shell_exec(cmd, arg, escape=False):
-    if escape:
-        arg = arg.replace("%", "%%").replace("\\", "\\\\")
-    os.environ['LANG'] = 'en_US.UTF-8'
-    os.system(cmd.format("'{}'".format(arg.replace("'", "\\'"))))
 
 
 class DictLookupError(Exception):

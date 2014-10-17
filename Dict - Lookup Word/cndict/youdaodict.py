@@ -45,17 +45,11 @@ def lookup(word):
     return result
 
 
-def copy(word, item):
-    shell_exec('printf {} | pbcopy', item, True)
+def extract(word, item):
+    if not is_english(word):
+        return item
 
 
-def open(word):
-    params = {
-        'q': word
-    }
-    url = '{}?{}'.format('http://dict.youdao.com/search', urllib.urlencode(params))
-    shell_exec('open {}', url)
-
-
-def say(word):
-    shell_exec('say {}', word)
+def get_url(word):
+    params = {'q': word}
+    return '{}?{}'.format('http://dict.youdao.com/search', urllib.urlencode(params))

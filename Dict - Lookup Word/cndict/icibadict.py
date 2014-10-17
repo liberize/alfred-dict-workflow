@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os
 import urllib
 import json
 from utils import *
@@ -39,14 +38,12 @@ def lookup(word):
     return result
 
 
-def copy(word, item):
-    shell_exec('printf {} | pbcopy', item, True)
+def extract(word, item):
+    if not is_english(word):
+        match = re.match(r'(\[.+\] )?(.+)', item)
+        if match:
+            return match.group(2)
 
 
-def open(word):
-    url = 'http://www.iciba.com/' + urllib.quote(word)
-    shell_exec('open {}', url)
-
-
-def say(word):
-    shell_exec('say {}', word)
+def get_url(word):
+    return 'http://www.iciba.com/' + urllib.quote(word)

@@ -3,6 +3,7 @@
 
 import urllib
 import json
+import re
 from utils import *
 
 
@@ -47,17 +48,13 @@ def lookup(word):
     return result
 
 
-def copy(word, item):
-    shell_exec('printf {} | pbcopy', item, True)
+def extract(word, item):
+    if not is_english(word):
+        match = re.match(r'(\[.+\] )?(.+)', item)
+        if match:
+            return match.group(2)
 
 
-def open(word):
-    params = {
-        'wd': word
-    }
-    url = '{}?{}'.format('http://dict.baidu.com/s', urllib.urlencode(params))
-    shell_exec('open {}', url)
-
-
-def say(word):
-    shell_exec('say {}', word)
+def get_url(word):
+    params = {'wd': word}
+    return '{}?{}'.format('http://dict.baidu.com/s', urllib.urlencode(params))

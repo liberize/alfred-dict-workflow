@@ -197,23 +197,17 @@ def lookup(word, external_cmd=True, cmd=DEFAULT_CMD, dict_name=DEFAULT_DICT_NAME
     return result
 
 
-def copy(word, item, dict_name=DEFAULT_DICT_NAME):
+def extract(word, item, dict_name=DEFAULT_DICT_NAME):
     if not is_english(word):
         if dict_name == 'oxford':
             match = re.match(r'[a-z]+\. (（.+）|［.+］)?(.+)', item)
             if match:
-                item = match.group(2)
+                return match.group(2)
         elif dict_name == 'landau':
-            match = re.match(r'【.+】 (.+)', item)
+            match = re.match(r'(【.+】 )?(.+)', item)
             if match:
-                item = match.group(1)
-    shell_exec('printf {} | pbcopy', item, True)
+                return match.group(2)
 
 
-def open(word):
-    url = 'dict://' + urllib.quote(word)
-    shell_exec('open {}', url)
-
-
-def say(word):
-    shell_exec('say {}', word)
+def get_url(word):
+    return 'dict://' + urllib.quote(word)

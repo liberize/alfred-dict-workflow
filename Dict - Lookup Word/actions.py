@@ -16,26 +16,40 @@ def get_keyword():
     for item in plist['objects']:
         if 'keyword' in item['config']:
             return item['config']['keyword']
-    return None
 
 
 def restore(arg):
     os.system("""osascript -e 'tell application "Alfred 2" to search "{}"'""".format(arg.replace('"', '\\"')))
 
 
+def shell_exec(cmd, arg, escape=False):
+    if escape:
+        arg = arg.replace("%", "%%").replace("\\", "\\\\")
+    os.environ['LANG'] = 'en_US.UTF-8'
+    os.system(cmd.format("'{}'".format(arg.replace("'", "\\'"))))
+
+
 match = re.match(r'^(.*?) @ (.*?) (\| (.*) )?([@|>]) (.*?)$', sys.argv[1])
 if match:
     word, dictionary, _, item, operator, command = match.groups()
-    if item:
-        cndict.copy(dictionary, word, item)
-        print 'Definition copied to clipboard.'
-    else:
-        if operator == '@':
-            keyword = get_keyword()
-            if keyword:
-                restore('{} {} @ {}'.format(keyword, word, command))
-        elif operator == '>':
-            if command == 'say':
-                cndict.say(dictionary, word)
-            elif command == 'open':
-                cndict.open(dictionary, word)
+    if operator == '@':
+        keyword = get_keyword()
+        if keyword:
+            if item:
+                new_word = cndict.extract(dictionary, word, item)
+                if new_word:
+                    word = new_word
+                    dictionary = command
+            else:
+                dictionary = command
+            restore('{} {} @ {}'.format(keyword, word, dictionary))
+    elif operator == '>':
+        if item:
+            definition = cndict.extract(dictionary, word, item) or item
+            shell_exec('printf {} | pbcopy', definition, True)
+            print 'Definition copied to clipboard.'
+        elif command == 'say':
+            shell_exec('say {}', word)
+        elif command == 'open':
+            url = cndict.get_url(dictionary, word)
+            shell_exec('open {}', url)

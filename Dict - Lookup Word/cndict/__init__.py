@@ -17,30 +17,22 @@ def _load_module(dictionary):
     try:
         return importlib.import_module('.' + module_name, __name__)
     except ImportError:
-        return None
+        pass
 
 
-def lookup(dictionary, word):
+def lookup(dictionary, *args, **kwargs):
     dictionary = _load_module(dictionary)
     if dictionary:
-        return dictionary.lookup(word)
-    else:
-        return None
+        return dictionary.lookup(*args, **kwargs)
 
 
-def copy(dictionary, word, item):
+def extract(dictionary, *args, **kwargs):
     dictionary = _load_module(dictionary)
     if dictionary:
-        dictionary.copy(word, item)
+        return dictionary.extract(*args, **kwargs)
 
 
-def open(dictionary, word):
+def get_url(dictionary, *args, **kwargs):
     dictionary = _load_module(dictionary)
     if dictionary:
-        dictionary.open(word)
-
-
-def say(dictionary, word):
-    dictionary = _load_module(dictionary)
-    if dictionary:
-        dictionary.say(word)
+        return dictionary.get_url(*args, **kwargs)

@@ -10,9 +10,7 @@ from utils import *
 
 
 def lookup(word):
-    params = {
-        'q': word
-    }
+    params = {'q': word}
     url = '{}?{}'.format('http://www.bing.com/dict/search', urllib.urlencode(params))
     try:
         request = urllib2.Request(url)
@@ -56,21 +54,13 @@ def lookup(word):
     return result
 
 
-def copy(word, item):
+def extract(word, item):
     if not is_english(word):
         match = re.match(r'[a-z]+\. (.+)', item)
         if match:
-            item = match.group(1)
-    shell_exec('printf {} | pbcopy', item, True)
+            return match.group(1)
 
 
-def open(word):
-    params = {
-        'q': word
-    }
-    url = '{}?{}'.format('http://www.bing.com/dict/search', urllib.urlencode(params))
-    shell_exec('open {}', url)
-
-
-def say(word):
-    shell_exec('say {}', word)
+def get_url(word):
+    params = {'q': word}
+    return '{}?{}'.format('http://www.bing.com/dict/search', urllib.urlencode(params))
