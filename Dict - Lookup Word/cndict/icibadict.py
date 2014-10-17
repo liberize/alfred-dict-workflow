@@ -40,13 +40,13 @@ def lookup(word):
 
 
 def copy(word, item):
-    os.system("printf '{}' | LANG=en_US.UTF-8 pbcopy".format(escape(item)))
+    shell_exec('printf {} | pbcopy', item, True)
 
 
 def open(word):
     url = 'http://www.iciba.com/' + urllib.quote(word)
-    os.system('open {}'.format(url))
+    shell_exec('open {}', url)
 
 
 def say(word):
-    os.system("say '{}'".format(word.replace("'", "\\'")))
+    shell_exec('say {}', word)

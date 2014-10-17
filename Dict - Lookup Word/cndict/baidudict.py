@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os
 import urllib
 import json
 from utils import *
@@ -49,7 +48,7 @@ def lookup(word):
 
 
 def copy(word, item):
-    os.system("printf '{}' | LANG=en_US.UTF-8 pbcopy".format(escape(item)))
+    shell_exec('printf {} | pbcopy', item, True)
 
 
 def open(word):
@@ -57,8 +56,8 @@ def open(word):
         'wd': word
     }
     url = '{}?{}'.format('http://dict.baidu.com/s', urllib.urlencode(params))
-    os.system('open {}'.format(url))
+    shell_exec('open {}', url)
 
 
 def say(word):
-    os.system("say '{}'".format(word.replace("'", "\\'")))
+    shell_exec('say {}', word)

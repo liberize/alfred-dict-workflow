@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os
 import urllib
 import urllib2
 import gzip
@@ -28,7 +27,7 @@ def lookup(word):
         data = gzip_file.read()
 
     # no need to use BeautifulSoup, just extract definition from meta tag
-    match = re.search(r'<meta name="description" content="([^<>]*)"/>', data)
+    match = re.search(r'<meta name="description" content="(.*?)"/>', data)
     if match is None:
         raise DictLookupError('failed to find meta tag.')
     description = match.group(1)
@@ -36,9 +35,9 @@ def lookup(word):
     result = []
     is_eng = is_english(word)
     match = re.match(r'^必应词典为您提供.*的释义，{}，(.*)； 网络释义： .*； $'.format(
-                     r'美\[([^\[\]]*)\](，英\[[^\[\]]*\])?'
+                     r'美\[(.*?)\](，英\[.*\])?'
                      if is_eng else
-                     r'拼音\[([^\[\]]*)\]'), description)
+                     r'拼音\[(.*)\]'), description)
     if match:
         phonetic = match.group(1)
         result.append('{}{}'.format(word, ' /{}/'.format(phonetic) if phonetic else ''))
@@ -62,7 +61,7 @@ def copy(word, item):
         match = re.match(r'[a-z]+\. (.+)', item)
         if match:
             item = match.group(1)
-    os.system("printf '{}' | LANG=en_US.UTF-8 pbcopy".format(escape(item)))
+    shell_exec('printf {} | pbcopy', item, True)
 
 
 def open(word):
@@ -70,8 +69,8 @@ def open(word):
         'q': word
     }
     url = '{}?{}'.format('http://www.bing.com/dict/search', urllib.urlencode(params))
-    os.system('open {}'.format(url))
+    shell_exec('open {}', url)
 
 
 def say(word):
-    os.system("say '{}'".format(word.replace("'", "\\'")))
+    shell_exec('say {}', word)

@@ -207,13 +207,13 @@ def copy(word, item, dict_name=DEFAULT_DICT_NAME):
             match = re.match(r'【.+】 (.+)', item)
             if match:
                 item = match.group(1)
-    os.system("printf '{}' | LANG=en_US.UTF-8 pbcopy".format(escape(item)))
+    shell_exec('printf {} | pbcopy', item, True)
 
 
 def open(word):
     url = 'dict://' + urllib.quote(word)
-    os.system('open {}'.format(url))
+    shell_exec('open {}', url)
 
 
 def say(word):
-    os.system("say '{}'".format(word.replace("'", "\\'")))
+    shell_exec('say {}', word)

@@ -21,26 +21,26 @@ def _load_module(dictionary):
 
 
 def lookup(dictionary, word):
-    cndict = _load_module(dictionary)
-    if cndict:
-        return cndict.lookup(word)
+    dictionary = _load_module(dictionary)
+    if dictionary:
+        return dictionary.lookup(word)
     else:
         return None
 
 
 def copy(dictionary, word, item):
-    cndict = _load_module(dictionary)
-    if cndict:
-        cndict.copy(word, item)
+    dictionary = _load_module(dictionary)
+    if dictionary:
+        dictionary.copy(word, item)
 
 
 def open(dictionary, word):
-    cndict = _load_module(dictionary)
-    if cndict:
-        cndict.open(word)
+    dictionary = _load_module(dictionary)
+    if dictionary:
+        dictionary.open(word)
 
 
 def say(dictionary, word):
-    cndict = _load_module(dictionary)
-    if cndict:
-        cndict.say(word)
+    dictionary = _load_module(dictionary)
+    if dictionary:
+        dictionary.say(word)
