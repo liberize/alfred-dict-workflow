@@ -52,17 +52,6 @@
 				<string></string>
 			</dict>
 		</array>
-		<key>BD7F69B0-C1B5-42C7-BFA3-9115A572CA48</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>3A28134B-75EF-4C8E-9578-8D28B5AAC7F5</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-			</dict>
-		</array>
 		<key>C6E96055-A9FC-4B3E-BE9B-8D9B6B7ED15F</key>
 		<array>
 			<dict>
@@ -161,6 +150,8 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>concurrently</key>
+				<false/>
 				<key>escaping</key>
 				<integer>100</integer>
 				<key>script</key>
@@ -178,6 +169,8 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>concurrently</key>
+				<false/>
 				<key>escaping</key>
 				<integer>100</integer>
 				<key>script</key>
@@ -195,6 +188,8 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>concurrently</key>
+				<false/>
 				<key>escaping</key>
 				<integer>100</integer>
 				<key>script</key>
@@ -264,29 +259,20 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>escaping</key>
-				<integer>100</integer>
-				<key>script</key>
-				<string>python ./actions.py "{query} @ bd"</string>
-				<key>type</key>
-				<integer>0</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>9A8F49BF-1304-4AC1-BA87-2BCF23C6D9C3</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>escaping</key>
 				<integer>100</integer>
 				<key>keyword</key>
 				<string>dict</string>
+				<key>queuedelaycustom</key>
+				<integer>1</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
 				<key>runningsubtext</key>
 				<string>Please wait ...</string>
 				<key>script</key>
@@ -310,6 +296,27 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>100</integer>
+				<key>script</key>
+				<string>python ./actions.py "{query} @ bd"</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>9A8F49BF-1304-4AC1-BA87-2BCF23C6D9C3</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
 				<key>escaping</key>
 				<integer>100</integer>
 				<key>script</key>
@@ -327,6 +334,8 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>concurrently</key>
+				<false/>
 				<key>escaping</key>
 				<integer>100</integer>
 				<key>script</key>
@@ -341,23 +350,6 @@
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>escaping</key>
-				<integer>100</integer>
-				<key>script</key>
-				<string>python ./actions.py "{query} &gt; say"</string>
-				<key>type</key>
-				<integer>0</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>BD7F69B0-C1B5-42C7-BFA3-9115A572CA48</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
 	</array>
 	<key>readme</key>
 	<string></string>
@@ -366,7 +358,7 @@
 		<key>1CBAA26B-7D1D-47B5-A997-170596301266</key>
 		<dict>
 			<key>ypos</key>
-			<real>130</real>
+			<real>170</real>
 		</dict>
 		<key>3A28134B-75EF-4C8E-9578-8D28B5AAC7F5</key>
 		<dict>
@@ -376,22 +368,17 @@
 		<key>3E2DFED0-0EEB-4957-ADB0-A804CBBE3747</key>
 		<dict>
 			<key>ypos</key>
-			<real>570</real>
+			<real>650</real>
 		</dict>
 		<key>89A1C4A1-2813-4CEC-B312-B728E54B5D59</key>
 		<dict>
 			<key>ypos</key>
-			<real>460</real>
+			<real>530</real>
 		</dict>
 		<key>9A8F49BF-1304-4AC1-BA87-2BCF23C6D9C3</key>
 		<dict>
 			<key>ypos</key>
-			<real>350</real>
-		</dict>
-		<key>BD7F69B0-C1B5-42C7-BFA3-9115A572CA48</key>
-		<dict>
-			<key>ypos</key>
-			<real>690</real>
+			<real>410</real>
 		</dict>
 		<key>C6E96055-A9FC-4B3E-BE9B-8D9B6B7ED15F</key>
 		<dict>
@@ -401,7 +388,7 @@
 		<key>CF3B3202-CBC6-459A-80F8-4BD2D77EBAC6</key>
 		<dict>
 			<key>ypos</key>
-			<real>240</real>
+			<real>290</real>
 		</dict>
 		<key>D29C9083-5950-4076-AAE6-E64E87E69F0B</key>
 		<dict>
@@ -411,7 +398,7 @@
 		<key>F8F4627F-6071-4FD3-9249-014727AED0C4</key>
 		<dict>
 			<key>ypos</key>
-			<real>20</real>
+			<real>50</real>
 		</dict>
 	</dict>
 	<key>webaddress</key>

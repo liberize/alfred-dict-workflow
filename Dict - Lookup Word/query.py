@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import re
 import sys
 import time
 import plistlib
@@ -57,22 +58,65 @@ elif argc == 2:
     bundle_id = plist['bundleid'].strip()
     base_dir = os.path.expanduser('~/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data/')
     dict_cache = Cache(os.path.join(base_dir, bundle_id))
-    try:
-        result = query(dictionary, word, dict_cache)
-        if result:
-            arg = u'{} @ {}'.format(word.decode('utf-8'), dictionary.decode('utf-8'))
-            feedback.add_item(title=result[0],
-                              subtitle=u'Press "↩" to view full definition or "⌘/⌥/⌃/⇧/fn + ↩" to lookup word in other dicts.',
-                              arg=arg,
-                              valid=True)
-            for item in result[1:]:
-                feedback.add_item(title=item, arg=u'{} | {}'.format(arg, item), valid=True)
+
+    internal_cmds = {
+        'clean': 'Clean cache',
+        'sysdict <o|l>': 'Set system dictionary to "oxford" or "landau"',
+        'defact <v|p>': 'Set default action to "view full definition" or "pronounce word"',
+    }
+
+    if word.startswith(':'):
+        cmd = word.lstrip(':').split(' ')
+        if cmd[0] == '':
+            feedback.add_item(title='Internal commands', valid=False)
+            for cmdl, desc in internal_cmds.iteritems():
+                feedback.add_item(title=cmdl, subtitle=desc,
+                                  arg=':{} '.format(cmdl.split(' ')[0]), valid=True)
         else:
-            feedback.add_item(title=u'Dict - Lookup Word',
-                              subtitle=u'Word "{}" doesn\'t exist in dict "{}".'.format(word.decode('utf-8'), dictionary.decode('utf-8')),
-                              valid=False)
-    except cndict.DictLookupError, e:
-        feedback.add_item(title=word, subtitle='Error: {}'.format(e), valid=False)
+            success = False
+            if cmd[0] == u'clean':
+                dict_cache.clean()
+                success = True
+            elif cmd[0] == u'sysdict':
+                if len(cmd) == 2:
+                    system_dict = {'o': 'oxford', 'l': 'landau'}.get(cmd[1], None)
+                    if system_dict:
+                        content = open('cndict/systemdict.py').read()
+                        content = re.sub(r'(?<=DEFAULT_DICT_NAME = ).*', "'{}'".format(system_dict), content)
+                        open('cndict/systemdict.py', 'w').write(content)
+                        success = True
+            elif cmd[0] == u'defact':
+                if len(cmd) == 2:
+                    default_action = {'v': 'open', 'p': 'say'}.get(cmd[1], None)
+                    if default_action:
+                        content = open('./info.plist').read()
+                        content = re.sub(r'\b(open|say)\b', default_action, content)
+                        open('./info.plist', 'w').write(content)
+                        success = True
+            if success:
+                feedback.add_item(title='Command executed successfully',
+                                  subtitle=u'Press "↩" to return.',
+                                  arg=':', valid=True)
+            else:
+                feedback.add_item(title='Invalid command',
+                                  subtitle=u'Press "↩" to view available internal commands.',
+                                  arg=':', valid=True)
+    else:
+        try:
+            result = query(dictionary, word, dict_cache)
+            arg = u'{} @ {}'.format(word.decode('utf-8'), dictionary.decode('utf-8'))
+            if result:
+                feedback.add_item(title=result[0],
+                                  subtitle=u'Press "↩" to view full definition or "⌘/⌥/⌃/⇧/fn + ↩" to lookup word in other dicts.',
+                                  arg=arg, valid=True)
+                for item in result[1:]:
+                    feedback.add_item(title=item, arg=u'{} | {}'.format(arg, item), valid=True)
+            else:
+                feedback.add_item(title='Dict - Lookup Word',
+                                  subtitle=u'Word "{}" doesn\'t exist in dict "{}".'.format(word.decode('utf-8'), dictionary.decode('utf-8')),
+                                  arg=arg, valid=True)
+        except cndict.DictLookupError, e:
+            feedback.add_item(title=word, subtitle='Error: {}'.format(e), valid=False)
 else:
     sys.exit(1)
 feedback.output()

@@ -22,7 +22,7 @@
 
 ![screenshot](https://github.com/liberize/alfred-dict-workflow/raw/master/screenshot.gif)
 
-## 用法
+## 查词用法
 
 关键词为 `dict`，默认使用系统词典，使用以下格式指定词典：
 
@@ -38,12 +38,29 @@
 百度     | bd, baidu    | `⇧` `↩`
 必应     | by, bing     | `fn` `↩`
 
+## 内部命令
 
-系统词典默认使用朗道词典，如果想切换为牛津词典，请编辑 `cndict/systemdict.py` 修改第 10 行：`DEFAULT_DICT_NAME = 'oxford'`.
+使用以下格式执行内部命令：
 
-修改或更新之后，如果想立即生效，请清空缓存：`~/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data/me.liberize.dict/`.
+    dict :{command}
 
-如果没有安装朗道词典，请先[下载](http://pan.baidu.com/s/1qWx4mV6)，然后复制到 `~/Library/Dictionaries/` 目录.
+命令     | 参数    | 功能
+------- | ------ | ---------------------------------
+clean   | 无      | 清除缓存
+sysdict | o 或 l  | 设置系统词典，牛津(o)或朗道(l)
+defact  | v 或 p  | 设置默认操作，查看完整释义(v)或发音(p)
+
+例如，系统词典默认使用朗道词典，如果想切换为牛津词典，请输入
+    
+    dict :sysdict o
+
+修改或更新之后，如果想立即生效，请清空缓存：
+
+    dict :clean
+
+## 其他
+
+朗道词典非系统内置，请先[下载](http://pan.baidu.com/s/1qWx4mV6)，然后复制到 `~/Library/Dictionaries/` 目录.
 
 由于必应词典没有提供 API，只能通过解析 HTML 得到，因此速度可能稍慢。
 

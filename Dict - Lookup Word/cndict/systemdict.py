@@ -45,7 +45,7 @@ def lookup(word, external_cmd=True, cmd=DEFAULT_CMD, dict_name=DEFAULT_DICT_NAME
         pinyin = u'āáǎàēéěèōóǒòīíǐìūúǔùüǘǚǜńň'
         phrase = r"a-zA-Z,\. "
         sentence = ur"0-9a-zA-Z'‘’«»£\$/\?!,\.\[\]\(\) "
-        pinyin_all = u"a-z{}'… ".format(pinyin)
+        pinyin_all = u"a-zA-Z{}'… ".format(pinyin)
         sentence_full = ur'([{1}][{0}]*[{1}]|\([{0}]*[{1}]|[{1}][{0}]*\)) ?[{2}]+'.format(
             sentence, sentence.replace(r'\(\) ', ''), chinese)
 
@@ -61,7 +61,7 @@ def lookup(word, external_cmd=True, cmd=DEFAULT_CMD, dict_name=DEFAULT_DICT_NAME
             'conjunction': 'conj.',
             'exclamation': 'excl.',
             'abbreviation': 'abbr.',
-            'plural noun': 'pl.',
+            'noun plural': 'pl.',
             'modifier': 'mod.'
         } if is_eng else {
             u'名词': u'n.',
@@ -76,7 +76,8 @@ def lookup(word, external_cmd=True, cmd=DEFAULT_CMD, dict_name=DEFAULT_DICT_NAME
         }
 
         ignore_list = [
-            'Uncountable and countable', 'Countable', 'Uncountable', 'British', 'American',
+            'Countable and uncountable', 'Uncountable and countable',
+            'Countable', 'Uncountable', 'British', 'American',
             'colloquial', 'euphemistic', 'dated', 'Linguistics'
         ] if is_eng else [
             u'方言', u'客套话', u'委婉语', u'书面语', u'俗语', u'比喻义', u'口语', u'惯用语'
