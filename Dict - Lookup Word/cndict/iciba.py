@@ -6,7 +6,7 @@ import json
 from utils import *
 
 
-def lookup(word):
+def lookup(word, *args):
     params = {
         'key': 'E93A321FB1995DF5EC118B51ABAF8DC7',
         'type': 'json',

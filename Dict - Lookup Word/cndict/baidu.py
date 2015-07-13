@@ -7,7 +7,7 @@ import re
 from utils import *
 
 
-def lookup(word):
+def lookup(word, *args):
     params = {
         'client_id': 'Gh4UZOrtK9cUba2MW4SuTS3T',
         'q': word

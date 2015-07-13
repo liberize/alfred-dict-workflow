@@ -1,19 +1,26 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import sys
 import importlib
 from utils import *
 
 
-def _load_module(dictionary):
+def get_full_name(dictionary):
     dict_name_map = {
-        'sys': 'system',
+        'nj': 'oxford',
+        'ld': 'landau',
         'yd': 'youdao',
         'cb': 'iciba',
         'bd': 'baidu',
-        'by': 'bing'
+        'by': 'bing',
+        'hc': 'dictcn'
     }
-    module_name = dict_name_map.get(dictionary, dictionary) + 'dict'
+    return dict_name_map.get(dictionary, dictionary)
+
+
+def _load_module(dictionary):
+    module_name = get_full_name(dictionary)
     try:
         return importlib.import_module('.' + module_name, __name__)
     except ImportError:

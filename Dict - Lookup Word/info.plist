@@ -68,7 +68,7 @@
 				<key>modifiers</key>
 				<integer>524288</integer>
 				<key>modifiersubtext</key>
-				<string>Lookup this word youdao dict.</string>
+				<string>Lookup this word in youdao dictionary.</string>
 			</dict>
 			<dict>
 				<key>destinationuid</key>
@@ -76,7 +76,7 @@
 				<key>modifiers</key>
 				<integer>262144</integer>
 				<key>modifiersubtext</key>
-				<string>Lookup this word iciba dict.</string>
+				<string>Lookup this word in iciba dictionary.</string>
 			</dict>
 			<dict>
 				<key>destinationuid</key>
@@ -84,7 +84,7 @@
 				<key>modifiers</key>
 				<integer>131072</integer>
 				<key>modifiersubtext</key>
-				<string>Lookup this word in baidu dict.</string>
+				<string>Lookup this word in in baidu dictionary.</string>
 			</dict>
 			<dict>
 				<key>destinationuid</key>
@@ -92,7 +92,7 @@
 				<key>modifiers</key>
 				<integer>1048576</integer>
 				<key>modifiersubtext</key>
-				<string>Lookup this word in system dict.</string>
+				<string>Lookup this word in in oxford dictionary.</string>
 			</dict>
 			<dict>
 				<key>destinationuid</key>
@@ -100,7 +100,7 @@
 				<key>modifiers</key>
 				<integer>8388608</integer>
 				<key>modifiersubtext</key>
-				<string>Lookup this word in bing dict.</string>
+				<string>Lookup this word in in bing dictionary.</string>
 			</dict>
 		</array>
 		<key>CF3B3202-CBC6-459A-80F8-4BD2D77EBAC6</key>
@@ -140,7 +140,7 @@
 	<key>createdby</key>
 	<string>liberize</string>
 	<key>description</key>
-	<string>Lookup word in system dict, youdao dict, iciba dict, baidu dict or bing dict.</string>
+	<string>Lookup word in multiple dictionaries.</string>
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
@@ -264,7 +264,7 @@
 				<key>escaping</key>
 				<integer>100</integer>
 				<key>keyword</key>
-				<string>dict</string>
+				<string>cc</string>
 				<key>queuedelaycustom</key>
 				<integer>1</integer>
 				<key>queuedelayimmediatelyinitially</key>
@@ -278,7 +278,7 @@
 				<key>script</key>
 				<string>python ./query.py "{query}"</string>
 				<key>subtext</key>
-				<string>Lookup word in system dict, youdao dict, iciba dict, baidu dict or bing dict.</string>
+				<string>Lookup word in multiple dictionaries.</string>
 				<key>title</key>
 				<string>Dict - Lookup Word</string>
 				<key>type</key>
@@ -320,7 +320,7 @@
 				<key>escaping</key>
 				<integer>100</integer>
 				<key>script</key>
-				<string>python ./actions.py "{query} @ sys"</string>
+				<string>python ./actions.py "{query} @ nj"</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
@@ -358,47 +358,47 @@
 		<key>1CBAA26B-7D1D-47B5-A997-170596301266</key>
 		<dict>
 			<key>ypos</key>
-			<real>170</real>
+			<real>170.0</real>
 		</dict>
 		<key>3A28134B-75EF-4C8E-9578-8D28B5AAC7F5</key>
 		<dict>
 			<key>ypos</key>
-			<real>350</real>
+			<real>350.0</real>
 		</dict>
 		<key>3E2DFED0-0EEB-4957-ADB0-A804CBBE3747</key>
 		<dict>
 			<key>ypos</key>
-			<real>650</real>
+			<real>650.0</real>
 		</dict>
 		<key>89A1C4A1-2813-4CEC-B312-B728E54B5D59</key>
 		<dict>
 			<key>ypos</key>
-			<real>530</real>
+			<real>530.0</real>
 		</dict>
 		<key>9A8F49BF-1304-4AC1-BA87-2BCF23C6D9C3</key>
 		<dict>
 			<key>ypos</key>
-			<real>410</real>
+			<real>410.0</real>
 		</dict>
 		<key>C6E96055-A9FC-4B3E-BE9B-8D9B6B7ED15F</key>
 		<dict>
 			<key>ypos</key>
-			<real>350</real>
+			<real>350.0</real>
 		</dict>
 		<key>CF3B3202-CBC6-459A-80F8-4BD2D77EBAC6</key>
 		<dict>
 			<key>ypos</key>
-			<real>290</real>
+			<real>290.0</real>
 		</dict>
 		<key>D29C9083-5950-4076-AAE6-E64E87E69F0B</key>
 		<dict>
 			<key>ypos</key>
-			<real>350</real>
+			<real>350.0</real>
 		</dict>
 		<key>F8F4627F-6071-4FD3-9249-014727AED0C4</key>
 		<dict>
 			<key>ypos</key>
-			<real>50</real>
+			<real>50.0</real>
 		</dict>
 	</dict>
 	<key>webaddress</key>

@@ -6,7 +6,7 @@ import json
 from utils import *
 
 
-def lookup(word):
+def lookup(word, *args):
     params = {
         'keyfrom': 'awf-Chinese-Dict',
         'key': '19965805',

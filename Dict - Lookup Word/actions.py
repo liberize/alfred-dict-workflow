@@ -5,17 +5,14 @@ import sys
 import os
 import re
 import cndict
-import plistlib
+import json
+
+from cache import Cache
+from alfredplist import AlfredPlist
+
 
 if len(sys.argv) != 2:
     sys.exit(1)
-
-
-def get_keyword():
-    plist = plistlib.readPlist(os.path.abspath('./info.plist'))
-    for item in plist['objects']:
-        if 'keyword' in item['config']:
-            return item['config']['keyword']
 
 
 def restore(arg):
@@ -29,17 +26,30 @@ def shell_exec(cmd, arg, escape=False):
     os.system(cmd.format("'{}'".format(arg.replace("'", "\\'"))))
 
 
-match = re.match(r'^(:.*?) ([@|>]) (.*?)$', sys.argv[1])
+plist = AlfredPlist()
+plist.read(os.path.abspath('./info.plist'))
+
+match = re.match(r'^:(.*?) ([@|>]) (.*?)$', sys.argv[1])
 if match:
-    keyword = get_keyword()
-    if keyword:
-        restore('{} {}'.format(keyword, match.group(1)))
+    command = match.group(1).strip()
+    if command == 'clean':
+        base_dir = os.path.expanduser('~/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data/')
+        dict_cache = Cache(os.path.join(base_dir, plist.get_bundleid()))
+        dict_cache.clean()
+    elif command == 'config':
+        shell_exec('open {}', os.path.abspath('./config.json'))
+    elif command == 'update':
+        config_data = open(os.path.abspath('./config.json')).read()
+        config = json.loads(re.sub(r'//.*', '', config_data))
+        plist.set_keyword(config['keyword'])
+        plist.set_keymap(config['keymap'])
+        plist.write(os.path.abspath('./info.plist'))
 else:
     match = re.match(r'^(.*?) @ (.*?) (\| (.*) )?([@|>]) (.*?)$', sys.argv[1])
     if match:
         word, dictionary, _, item, operator, command = match.groups()
         if operator == '@':
-            keyword = get_keyword()
+            keyword = plist.get_keyword()
             if keyword:
                 if item:
                     new_word = cndict.extract(dictionary, word, item)

@@ -1,0 +1,59 @@
+{
+    // keyword to trigger this workflow, `cc` i.e. `查词`
+    // ** run internal command 'update' to take effect **
+    "keyword": "cc",
+
+    // default dictionary, available options are:
+    // - `nj` or `oxford`: system oxford dictionary
+    // - `ld` or `landau`: landau dictionary, not built in, please download and install as instructed
+    // - `cb` or `iciba`: iciba online dictionary
+    // - `bd` or `baidu`: baidu online dictionary
+    // - `by` or `bing`: bing online dictionary, may be slower due to absence of api
+    // - `yd` or `youdao`: youdao online dictionary
+    // - `hc` or `dictcn`: dict.cn online dictionary, may be slower due to absence of api
+    "default": "nj",
+
+    // keymap for user actions
+    // + none: default action when you press enter, available options are
+    //     - `open`: open Dictionary.app for `sys` and `ld` or open url in browser for other dictionaries
+    //     - `say`: pronounce word via system tts engine
+    // + ctrl/alt/shift/cmd/fn: dictionary to switch when press enter with these modifier keys
+    // ** run internal command 'update' to take effect **
+    "keymap":
+    {
+        "none": "open",
+        "ctrl": "cb",
+        "alt": "yd",
+        "shift": "bd",
+        "cmd": "nj",
+        "fn": "by"
+    },
+    
+    // dictionary options
+    // these options will be passed to `lookup` function as argument
+    // ** don't change these options unless you are aware of what you are doing **
+    "options":
+    {
+        "oxford":
+        {
+            "external_cmd": true
+        },
+        "dictcn":
+        {
+            "wap_page": false
+        },
+        "bing":
+        {
+            "wap_page": true
+        }
+    },
+
+    // cache settings
+    // + enable: enable cache or not
+    // + expire: cache expire time in hours
+    "cache":
+    {
+        "enable": true,
+        "expire": 24
+    }
+}
