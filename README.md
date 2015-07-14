@@ -2,7 +2,7 @@
 
 多功能、快速、易用的 Alfred 查词扩展。
 
-** 请到 release 页面下载最新的 workflow，双击安装，更新 workflow 时请先删除旧的 workflow。**
+**请到 release 页面下载最新的 workflow，双击安装，更新 workflow 时请先删除旧的 workflow。**
 
 ## 简介
 
