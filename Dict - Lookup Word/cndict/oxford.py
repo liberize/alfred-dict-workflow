@@ -6,6 +6,7 @@ import re
 import urllib
 import subprocess
 import platform
+from distutils.version import StrictVersion
 from utils import *
 
 
@@ -41,13 +42,13 @@ def lookup(word, external_cmd=True, *args):
     sentence_full = ur'([{1}][{0}]*[{1}]|\([{0}]*[{1}]|[{1}][{0}]*\)) ?[{2}]+'.format(
         sentence, sentence.replace(r'\(\) ', ''), chinese)
 
-    mac_ver = platform.mac_ver()
-    yosemite = mac_ver[0].startswith('10.10.')
+    mac_ver = StrictVersion(platform.mac_ver()[0])
 
     part_map = {
         'noun': 'n.',
         'intransitive verb': 'vi.',
         'transitive verb': 'vt.',
+        'reflexive verb': 'vr.',
         'adjective': 'adj.',
         'adverb': 'adv.',
         'determiner': 'det.',
@@ -59,15 +60,15 @@ def lookup(word, external_cmd=True, *args):
         'noun plural': 'pl.',
         'modifier': 'mod.'
     } if is_eng else {
-        u'名' if yosemite else u'名词': u'n.',
-        u'动' if yosemite else u'动词': u'v.',
-        u'形' if yosemite else u'形容词': u'adj.',
-        u'副' if yosemite else u'副词': u'adv.',
-        u'数' if yosemite else u'数词': u'num.',
-        u'代' if yosemite else u'代词': u'pron.',
-        u'介' if yosemite else u'介词': u'prep.',
-        u'连' if yosemite else u'连词': u'conj.',
-        u'叹' if yosemite else u'叹词': u'excl.'
+        u'名' if mac_ver >= StrictVersion('10.10') else u'名词': u'n.',
+        u'动' if mac_ver >= StrictVersion('10.10') else u'动词': u'v.',
+        u'形' if mac_ver >= StrictVersion('10.10') else u'形容词': u'adj.',
+        u'副' if mac_ver >= StrictVersion('10.10') else u'副词': u'adv.',
+        u'数' if mac_ver >= StrictVersion('10.10') else u'数词': u'num.',
+        u'代' if mac_ver >= StrictVersion('10.10') else u'代词': u'pron.',
+        u'介' if mac_ver >= StrictVersion('10.10') else u'介词': u'prep.',
+        u'连' if mac_ver >= StrictVersion('10.10') else u'连词': u'conj.',
+        u'叹' if mac_ver >= StrictVersion('10.10') else u'叹词': u'excl.'
     }
 
     ignore_list = [
@@ -75,7 +76,8 @@ def lookup(word, external_cmd=True, *args):
         'Countable', 'Uncountable', 'British', 'American',
         'colloquial', 'euphemistic', 'dated', 'Linguistics'
     ] if is_eng else [
-        u'方言', u'客套话', u'委婉语', u'书面语', u'俗语', u'比喻义', u'口语', u'惯用语'
+        u'方言', u'客套话', u'委婉语', u'书面语', u'俗语', u'比喻义',
+        u'口语', u'惯用语', u'旧词', u'敬辞'
     ]
 
     phrase_mode = False
