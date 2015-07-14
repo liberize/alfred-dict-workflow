@@ -2,6 +2,8 @@
 
 多功能、快速、易用的 Alfred 查词扩展。
 
+** 请到 release 页面下载最新的 workflow，双击安装，更新 workflow 时请先删除旧的 workflow。**
+
 ## 简介
 
 * 支持的词典：
@@ -24,7 +26,7 @@
 
 ![screenshot](https://github.com/liberize/alfred-dict-workflow/raw/master/screenshot.gif)
 
-## 查词用法
+## 查词
 
 查词：
 
@@ -75,13 +77,13 @@ update  | 修改配置文件的某些项后需要更新才能生效
         - "open"：打开详细解释页面（浏览器或系统词典）。
         - "say"：发音，目前只支持系统 tts 引擎。
     * "ctrl/alt/shift/cmd/fn": 词典代号，长短皆可。
-* "options": 具体词典相关的一些选项，一般不用修改。
+* "options": 词典相关的选项，一般不用修改。
     * "oxford": 牛津词典选项：
-        * "external_cmd": 使用外部命令或 python 接口查词，默认为 "true"。
+        * "external_cmd": 使用外部程序或 python 接口查词，默认为 "true"。
     * "dictcn": 海词词典选项：
-        * "wap_page": 是否使用 wap 页面查词，wap 页面速度可能快一些，但信息较少，默认为 "false"。
+        * "wap_page": 是否使用 wap 页面查词，wap 页面信息较少，默认为 "false"。
     * "bing": 必应词典选项：
-        * "wap_page": 是否使用 wap 页面查词，信息一样，但 wap 页面速度可能快一些，默认为 "true"。
+        * "wap_page": 是否使用 wap 页面查词，wap 页面速度更快，默认为 "true"。
 * "cache": 缓存相关的设置。
     * "enable": 打开或关闭缓存，默认为 "true"。
     * "expire": 缓存失效时间，以小时为单位，默认为 "24"。
@@ -90,7 +92,7 @@ update  | 修改配置文件的某些项后需要更新才能生效
 
 * 配置文件里同样有较详细英文注释，请修改之前务必了解每个选项的作用。
 * "keyword" 和 "keymap" 这两个选项修改完之后执行 update 才能生效。
-* 多数情况下不用修改配置文件，默认即可。
+* 没有特殊需求，无需修改配置文件，保持默认即可。
 
 ## LICENSE
 

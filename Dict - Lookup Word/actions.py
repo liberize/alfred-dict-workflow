@@ -36,14 +36,17 @@ if match:
         base_dir = os.path.expanduser('~/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data/')
         dict_cache = Cache(os.path.join(base_dir, plist.get_bundleid()))
         dict_cache.clean()
+        print 'Cache has been cleaned.'
     elif command == 'config':
         shell_exec('open {}', os.path.abspath('./config.json'))
+        print 'Please edit config file in your editor.'
     elif command == 'update':
         config_data = open(os.path.abspath('./config.json')).read()
         config = json.loads(re.sub(r'//.*', '', config_data))
         plist.set_keyword(config['keyword'])
         plist.set_keymap(config['keymap'])
         plist.write(os.path.abspath('./info.plist'))
+        print 'Config has been successfully updated.'
 else:
     match = re.match(r'^(.*?) @ (.*?) (\| (.*) )?([@|>]) (.*?)$', sys.argv[1])
     if match:
