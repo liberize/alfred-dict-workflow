@@ -91,9 +91,9 @@ elif argc == 2:
             feedback.add_item(title=cmd, subtitle=desc,
                               arg=':{}'.format(cmd), valid=True)
     else:
+        arg = u'{} @ {}'.format(word.decode('utf-8'), dictionary.decode('utf-8'))
         try:
             result = query(dictionary, word)
-            arg = u'{} @ {}'.format(word.decode('utf-8'), dictionary.decode('utf-8'))
             if result:
                 action = config['keymap']['none'] if config else 'open'
                 feedback.add_item(title=result[0],
@@ -108,7 +108,7 @@ elif argc == 2:
                                            word.decode('utf-8'), dictionary.decode('utf-8')),
                                   arg=arg, valid=True)
         except cndict.DictLookupError, e:
-            feedback.add_item(title=word, subtitle='Error: {}'.format(e), valid=False)
+            feedback.add_item(title=word, subtitle='Error: {}'.format(e), arg=arg, valid=True)
 else:
     sys.exit(1)
 feedback.output()
