@@ -38,15 +38,13 @@ def lookup(word, wap_page=False, *args):
                           r'\s*<div class="exp">(.*?)</div>'
                           if is_eng else
                           r''), data, re.S)
-        if match is None:
-            raise DictLookupError('failed to parse html.')
-
-        phonetic = match.group(1)
-        result.append('{}{}'.format(word, ' /{}/'.format(phonetic) if phonetic else ''))
-        if is_eng:
-            definition = match.group(2)
-            for match in re.finditer(r'<span>(.*?)</span>(.*?)<br/>', definition):
-                result.append('{} {}'.format(match.group(1), match.group(2)))
+        if match:
+            phonetic = match.group(1)
+            result.append('{}{}'.format(word, ' /{}/'.format(phonetic) if phonetic else ''))
+            if is_eng:
+                definition = match.group(2)
+                for match in re.finditer(r'<span>(.*?)</span>(.*?)<br/>', definition):
+                    result.append('{} {}'.format(match.group(1), match.group(2)))
     else:
         match = re.search(r'<div class="phonetic">{}</div>'.format(
                           r'\s*<span>\s*英 .*?\[.*?\].*?</span>\s*<span>\s*美 .*?\[(.*?)\].*?</span>\s*'
@@ -58,19 +56,28 @@ def lookup(word, wap_page=False, *args):
         match = re.search(r'<div class="layout {}">(.*?)</div>'.format(
                           r'detail' if is_eng else r'cn'), data, re.S)
         if match is None:
-            raise DictLookupError('failed to parse html.')
-
-        definition = match.group(1)
-        if is_eng:
-            for match in re.finditer(r'<span>(.*?)<bdo>.*?</bdo></span>\s*<ol .*?>(.*?)</ol>', definition, re.S):
-                part = match.group(1)
-                for item in re.finditer(r'<li>(.*?)</li>', match.group(2)):
-                    result.append('{} {}'.format(part, item.group(1)))
+            if is_eng:
+                # no detailed definition, try basic
+                match = re.search(r'<ul class="dict-basic-ul">(.*?)</ul>', data, re.S)
+                if match:
+                    for item in re.finditer(r'<li><span>(.*?)</span><strong>(.*?)</strong></li>', match.group(1)):
+                        result.append('{} {}'.format(item.group(1), item.group(2)))
         else:
-            match = re.search(r'<ul .*?>(.*?)</ul>', definition, re.S)
-            if match:
-                for item in re.finditer(r'<li><a .*?>(.*?)</a></li>', match.group(1)):
-                    result.append(item.group(1))
+            definition = match.group(1)
+            if is_eng:
+                for match in re.finditer(r'<span>(.*?)<bdo>.*?</bdo></span>\s*<ol .*?>(.*?)</ol>', definition, re.S):
+                    part = match.group(1)
+                    for item in re.finditer(r'<li>(.*?)</li>', match.group(2)):
+                        result.append('{} {}'.format(part, item.group(1)))
+            else:
+                match = re.search(r'<ul .*?>(.*?)</ul>', definition, re.S)
+                if match:
+                    for item in re.finditer(r'<li><a .*?>(.*?)</a></li>', match.group(1)):
+                        result.append(item.group(1))
+
+        # no definition and no phonetic, return empty list
+        if not phonetic and len(result) == 1:
+            result = []
     return result
 
 

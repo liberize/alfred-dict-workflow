@@ -34,23 +34,21 @@ def lookup(word, wap_page=True, *args):
 
     if wap_page:
         match = re.search(r'<div><b>.*?</b>{}<br />(.*?)<br />web\.<br />'.format(
-                          r'.*?US:\[(.*?)\](.*UK:\[.*?\])?.*?'
+                          r'(.*?US:\[(.*?)\])?(.*?UK:\[(.*?)\])?.*?'
                           if is_eng else
                           r'.*?'), data)
-        if match is None:
-            raise DictLookupError('failed to parse html.')
-
-        phonetic = match.group(1) if is_eng else ''
-        result.append('{}{}'.format(word, ' /{}/'.format(phonetic) if phonetic else ''))
-        definition = match.group(3 if is_eng else 1)
-        items = definition.replace('&nbsp;', '').replace('&bull;', '').split('<br />')
-        part = ''
-        for item in items:
-            match = re.match(r'^([a-z]+\.)$', item)
-            if match:
-                part = match.group(1)
-                continue
-            result.append('{} {}'.format(part, item))
+        if match:
+            phonetic = (match.group(2) or match.group(4)) if is_eng else ''
+            result.append('{}{}'.format(word, ' /{}/'.format(phonetic) if phonetic else ''))
+            definition = match.group(5 if is_eng else 1)
+            items = definition.replace('&nbsp;', '').replace('&bull;', '').split('<br />')
+            part = ''
+            for item in items:
+                match = re.match(r'^([a-z]+\.)$', item)
+                if match:
+                    part = match.group(1)
+                    continue
+                result.append('{} {}'.format(part, item))
     else:
         # no need to use BeautifulSoup, just extract definition from meta tag
         match = re.search(r'<meta name="description" content="(.*?)"/>', data)
@@ -58,14 +56,14 @@ def lookup(word, wap_page=True, *args):
             raise DictLookupError('failed to find meta tag.')
         description = match.group(1)
 
-        match = re.match(r'^必应词典为您提供.*的释义，{}，(.*)； 网络释义： .*； $'.format(
-                         r'美\[(.*?)\](，英\[.*?\])?'
+        match = re.match(r'^必应词典为您提供.*?的释义{}，(.*?)； 网络释义：.*$'.format(
+                         r'(，美\[(.*?)\])?(，英\[(.*?)\])?'
                          if is_eng else
-                         r'拼音\[(.*)\]'), description)
+                         r'，拼音\[(.*)\]'), description)
         if match:
-            phonetic = match.group(1)
+            phonetic = (match.group(2) or match.group(4)) if is_eng else match.group(1)
             result.append('{}{}'.format(word, ' /{}/'.format(phonetic) if phonetic else ''))
-            items = match.group(3 if is_eng else 2).split('； ')
+            items = match.group(5 if is_eng else 2).split('； ')
             if is_eng:
                 for item in items:
                     if item != '':
