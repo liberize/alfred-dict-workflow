@@ -36,7 +36,8 @@
     {
         "oxford":
         {
-            "external_cmd": true
+            "external_cmd": true,
+            "parse_html": true
         },
         "dictcn":
         {

@@ -11,18 +11,17 @@ from utils import *
 def lookup(word, *args):
     cmd = '{}/{}'.format(os.path.dirname(os.path.realpath(__file__)), 'systemdict')
     if os.path.isfile(cmd) and os.access(cmd, os.X_OK):
-        dict_file = 'langdao-ec-gb.dictionary' if is_english(word) else 'langdao-ce-gb.dictionary'
-        dict_path = os.path.expanduser('~/Library/Dictionaries/{}'.format(dict_file))
-        proc = subprocess.Popen([cmd, dict_path, word], stdout=subprocess.PIPE)
+        dict_name = '朗道英汉字典5.0' if is_english(word) else '朗道汉英字典5.0'
+        proc = subprocess.Popen([cmd, '-t', 'text', '-d', dict_name, word],
+                                stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         definition = proc.stdout.read()
-        if definition == '(null)\n':
+        if definition.strip() == '':
             return []
-        definition = definition.decode('utf-8')
     else:
         raise DictLookupError('file {} not found or not executable.'.format(cmd))
 
     result = []
-    definition = definition.encode('utf-8').split('\n相关词组:\n')[0]
+    definition = definition.split('\n相关词组:\n')[0]
     result = definition.split('\n')
     if is_english(word):
         if result[1].startswith('*['):

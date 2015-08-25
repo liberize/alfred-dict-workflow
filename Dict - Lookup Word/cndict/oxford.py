@@ -79,7 +79,7 @@ def lookup(word, external_cmd=True, parse_html=True, *args):
             word_span = entry.find("./span[@class='hwg']/span[@{}dhw]".format(ns))
             if word_span is None:
                 continue
-            if word_span.text.encode('utf-8') == word:
+            if word_span.text.encode('utf-8').lower() == word.lower():
                 root = entry
                 phonetic_span = entry.find("./span[@class='hwg']/span[@class='pr']".format(ns))
                 if phonetic_span is not None:
@@ -110,7 +110,7 @@ def lookup(word, external_cmd=True, parse_html=True, *args):
                             for span4 in span3.findall('./span[@class]'):
                                 if span4.attrib['class'] != 'trans ty_pinyin':
                                     item += ''.join(span4.itertext())
-                    
+
                     item = re.sub(r' {2,}', ' ', item).strip()
                     if item:
                         item = u'{} {}'.format(part, item).encode('utf-8')
