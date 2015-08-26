@@ -82,7 +82,7 @@ update  | 修改配置文件的某些项后需要更新才能生效
 * "options": 词典相关的选项，一般不用修改。
     * "oxford": 牛津词典选项：
         * "external_cmd": 使用外部程序或 python 接口查词，python 接口只支持纯文本，默认为 "true"。
-        * "parse_html": 使用 html 或纯文本格式的作为查询结果，理论上解析 html 更准确，默认为 "true"。
+        * "parse_html": 使用 html 或纯文本格式作为查询结果，理论上解析 html 更准确，默认为 "true"。
     * "dictcn": 海词词典选项：
         * "wap_page": 是否使用 wap 页面查词，wap 页面信息较少，默认为 "false"。
     * "bing": 必应词典选项：
