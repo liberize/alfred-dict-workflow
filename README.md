@@ -44,7 +44,7 @@
 爱词霸在线词典       | cb, iciba    
 百度在线词典         | bd, baidu   
 必应在线词典         | by, bing    
-海词在线词典         | hc，dictcn
+海词在线词典         | hc, dictcn
 
 注：
 
