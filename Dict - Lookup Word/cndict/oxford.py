@@ -16,10 +16,12 @@ except ImportError:
 
 
 def lookup(word, external_cmd=True, parse_html=True, *args):
+    mac_ver = StrictVersion(platform.mac_ver()[0])
+
     if external_cmd:
         cmd = '{}/{}'.format(os.path.dirname(os.path.realpath(__file__)), 'systemdict')
         if os.path.isfile(cmd) and os.access(cmd, os.X_OK):
-            dict_name = '牛津英汉汉英词典'
+            dict_name = '牛津英汉汉英词典' if mac_ver >= StrictVersion('10.10') else 'Oxford Chinese Dictionary'
             proc = subprocess.Popen([cmd, '-t', 'html' if parse_html else 'text', '-d', dict_name, word],
                                     stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             definition = proc.stdout.read()
@@ -39,7 +41,6 @@ def lookup(word, external_cmd=True, parse_html=True, *args):
 
     result = []
     is_eng = is_english(word)
-    mac_ver = StrictVersion(platform.mac_ver()[0])
 
     part_map = {
         'noun': 'n.',
