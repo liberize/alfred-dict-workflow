@@ -7,7 +7,6 @@
     // - `nj` or `oxford`: system oxford dictionary
     // - `ld` or `landau`: landau dictionary, not built in, please download and install as instructed
     // - `cb` or `iciba`: iciba online dictionary
-    // - `bd` or `baidu`: baidu online dictionary
     // - `by` or `bing`: bing online dictionary, may be slower due to absence of api
     // - `yd` or `youdao`: youdao online dictionary
     // - `hc` or `dictcn`: dict.cn online dictionary, may be slower due to absence of api

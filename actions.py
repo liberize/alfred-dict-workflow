@@ -7,16 +7,13 @@ import re
 import cndict
 import json
 
-from cache import Cache
-from alfredplist import AlfredPlist
+from alfred.alfred import Alfred
+from alfred.cache import Cache
+from alfred.plist import Plist
 
 
 if len(sys.argv) != 2:
     sys.exit(1)
-
-
-def restore(arg):
-    os.system("""osascript -e 'tell application "Alfred 2" to search "{}"' &""".format(arg.replace('"', '\\"')))
 
 
 def shell_exec(cmd, arg, escape=False):
@@ -26,15 +23,15 @@ def shell_exec(cmd, arg, escape=False):
     os.system(cmd.format("'{}'".format(arg.replace("'", "\\'"))))
 
 
-plist = AlfredPlist()
+alfred = Alfred()
+plist = Plist()
 plist.read(os.path.abspath('./info.plist'))
 
 match = re.match(r'^:(.*?) ([@|>]) (.*?)$', sys.argv[1])
 if match:
     command = match.group(1).strip()
     if command == 'clean':
-        base_dir = os.path.expanduser('~/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data/')
-        dict_cache = Cache(os.path.join(base_dir, plist.get_bundleid()))
+        dict_cache = Cache(os.path.join(alfred.get_cache_dir(), plist.get_bundleid()))
         dict_cache.clean()
         print 'Cache has been cleaned.'
     elif command == 'config':
@@ -61,7 +58,7 @@ else:
                         dictionary = command
                 else:
                     dictionary = command
-                restore('{} {} @ {}'.format(keyword, word, dictionary))
+                alfred.run('{} {} @ {}'.format(keyword, word, dictionary))
         elif operator == '>':
             if item:
                 definition = cndict.extract(dictionary, word, item) or item

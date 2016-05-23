@@ -6,7 +6,7 @@ import plistlib
 import cndict
 
 
-class AlfredPlist(object):
+class Plist(object):
     def __init__(self):
         self.__modifier_map = {
             0: 'none',

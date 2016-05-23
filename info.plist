@@ -84,7 +84,7 @@
 				<key>modifiers</key>
 				<integer>131072</integer>
 				<key>modifiersubtext</key>
-				<string>Lookup this word in in baidu dictionary.</string>
+				<string>Lookup this word in in dictcn dictionary.</string>
 			</dict>
 			<dict>
 				<key>destinationuid</key>
@@ -214,7 +214,7 @@
 				<key>hotkey</key>
 				<integer>2</integer>
 				<key>hotmod</key>
-				<integer>393216</integer>
+				<integer>1179648</integer>
 				<key>hotstring</key>
 				<string>D</string>
 				<key>leftcursor</key>
@@ -301,7 +301,7 @@
 				<key>escaping</key>
 				<integer>100</integer>
 				<key>script</key>
-				<string>python ./actions.py "{query} @ bd"</string>
+				<string>python ./actions.py "{query} @ hc"</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>

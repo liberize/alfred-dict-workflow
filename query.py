@@ -8,9 +8,10 @@ import time
 import cndict
 import json
 
-from cache import Cache
-from feedback import Feedback
-from alfredplist import AlfredPlist
+from alfred.alfred import Alfred
+from alfred.cache import Cache
+from alfred.feedback import Feedback
+from alfred.plist import Plist
 
 
 def query(dictionary, word):
@@ -48,11 +49,11 @@ def query(dictionary, word):
         return result
 
 
+alfred = Alfred()
 feedback = Feedback()
-plist = AlfredPlist()
+plist = Plist()
 plist.read(os.path.abspath('./info.plist'))
-base_dir = os.path.expanduser('~/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data/')
-dict_cache = Cache(os.path.join(base_dir, plist.get_bundleid()))
+dict_cache = Cache(os.path.join(alfred.get_cache_dir(), plist.get_bundleid()))
 
 try:
     config_data = open(os.path.abspath('./config.json')).read()
@@ -64,7 +65,7 @@ sys.argv = [arg for arg in sys.argv if arg != '']
 argc = len(sys.argv)
 if argc == 1:
     feedback.add_item(title=u'Dict - Lookup Word',
-                      subtitle=u'Format: "word @ dict". Available dicts are "nj", "ld", "yd", "cb", "bd", "by", "hc".',
+                      subtitle=u'Format: "word @ dict". Available dicts are "nj", "ld", "yd", "cb", "by", "hc".',
                       valid=False)
 elif argc == 2:
     arg = sys.argv[1]

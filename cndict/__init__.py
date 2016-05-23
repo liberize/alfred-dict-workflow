@@ -12,7 +12,6 @@ def get_full_name(dictionary):
         'ld': 'landau',
         'yd': 'youdao',
         'cb': 'iciba',
-        'bd': 'baidu',
         'by': 'bing',
         'hc': 'dictcn'
     }
