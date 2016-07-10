@@ -3,12 +3,22 @@
 
 import re
 import os
+import subprocess
 
 
 class Alfred(object):
     def __init__(self):
+        self.version = self.__get_version()
+
+    def __get_version(self):
         match = re.search(r'/Alfred (\d)/', os.path.realpath(__file__))
-        self.version = int(match.group(1)) if match else 2
+        if match:
+            return int(match.group(1))
+        proc = subprocess.Popen("ps ax -o command | grep '[A]lfred'", shell=True, stdout=subprocess.PIPE)
+        match = re.search(r'/Alfred (\d)\.app/', proc.stdout.read())
+        if match:
+            return int(match.group(1))
+        return 2
 
     def get_cache_dir(self):
         return os.path.expanduser('~/Library/Caches/com.runningwithcrayons.Alfred-{}/Workflow Data/'.format(self.version))
