@@ -85,8 +85,6 @@ update  | 修改配置文件的某些项后需要更新才能生效
         * "parse_html": 使用 html 或纯文本格式作为查询结果，理论上解析 html 更准确，默认为 "true"。
     * "dictcn": 海词词典选项：
         * "wap_page": 是否使用 wap 页面查词，wap 页面信息较少，默认为 "false"。
-    * "bing": 必应词典选项：
-        * "wap_page": 是否使用 wap 页面查词，wap 页面速度更快，默认为 "true"。
 * "cache": 缓存相关的设置。
     * "enable": 打开或关闭缓存，默认为 "true"。
     * "expire": 缓存失效时间，以小时为单位，默认为 "24"。

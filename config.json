@@ -40,10 +40,6 @@
         },
         "dictcn":
         {
-            "wap_page": false
-        },
-        "bing":
-        {
             "wap_page": true
         }
     },
