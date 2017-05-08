@@ -10,7 +10,7 @@ from utils import *
 
 
 def lookup(word, *args):
-    params = {'q': word}
+    params = {'q': word, 'mkt': 'zh-cn'}
     url = '{}?{}'.format('http://www.bing.com/dict/search', urllib.urlencode(params))
     try:
         request = urllib2.Request(url)
