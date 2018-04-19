@@ -47,9 +47,9 @@ def lookup(word, wap_page=False, *args):
                     result.append('{} {}'.format(match.group(1), match.group(2)))
     else:
         match = re.search(r'<div class="phonetic">{}</div>'.format(
-                          r'\s*<span>\s*英 .*?\[.*?\].*?</span>\s*<span>\s*美 .*?\[(.*?)\].*?</span>\s*'
+                          r'\s*<span>\s*英.*?\[.*?\].*?</span>\s*<span>\s*美.*?\[(.*?)\].*?</span>\s*'
                           if is_eng else
-                          r'\s*<span>\[(.*?)\]</span>\s*'), data, re.S)
+                          r'\s*<span>\s*\[(.*?)\]\s*</span>\s*'), data, re.S)
         phonetic = match.group(1) if match else ''
         result.append('{}{}'.format(word, ' /{}/'.format(phonetic) if phonetic else ''))
 
@@ -60,20 +60,20 @@ def lookup(word, wap_page=False, *args):
                 # no detailed definition, try basic
                 match = re.search(r'<ul class="dict-basic-ul">(.*?)</ul>', data, re.S)
                 if match:
-                    for item in re.finditer(r'<li><span>(.*?)</span><strong>(.*?)</strong></li>', match.group(1)):
+                    for item in re.finditer(r'<li>\s*<span>(.*?)</span>\s*<strong>(.*?)</strong>\s*</li>', match.group(1), re.S):
                         result.append('{} {}'.format(item.group(1), item.group(2)))
         else:
             definition = match.group(1)
             if is_eng:
-                for match in re.finditer(r'<span>(.*?)<bdo>.*?</bdo></span>\s*<ol .*?>(.*?)</ol>', definition, re.S):
-                    part = match.group(1)
+                for match in re.finditer(r'<span>(.*?)<bdo>.*?</bdo>\s*</span>\s*<ol .*?>(.*?)</ol>', definition, re.S):
+                    part = match.group(1).strip()
                     for item in re.finditer(r'<li>(.*?)</li>', match.group(2)):
                         result.append('{} {}'.format(part, item.group(1)))
             else:
                 match = re.search(r'<ul .*?>(.*?)</ul>', definition, re.S)
                 if match:
-                    for item in re.finditer(r'<li><a .*?>(.*?)</a></li>', match.group(1)):
-                        result.append(item.group(1))
+                    for item in re.finditer(r'<li>\s*<a .*?>(.*?)</a>\s*</li>', match.group(1), re.S):
+                        result.append(item.group(1).strip())
 
         # no definition and no phonetic, return empty list
         if not phonetic and len(result) == 1:
