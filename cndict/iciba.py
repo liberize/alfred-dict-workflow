@@ -11,7 +11,7 @@ def lookup(word, *args):
     params = {
         'key': 'E93A321FB1995DF5EC118B51ABAF8DC7',
         'type': 'json',
-        'w': word
+        'w': word.lower()
     }
     url = '{}?{}'.format('http://dict-co.iciba.com/api/dictionary.php', urllib.urlencode(params))
     try:
