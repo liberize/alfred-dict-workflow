@@ -5,11 +5,25 @@ import os
 import re
 import urllib
 import subprocess
+import platform
+from distutils.version import StrictVersion
 from utils import *
-from lxml import etree
+
+_lxml_installed = True
+try:
+    from lxml import etree
+except ImportError:
+    _lxml_installed = False
 
 
 def lookup(word, *args):
+    mac_ver = StrictVersion(platform.mac_ver()[0])
+    if mac_ver < StrictVersion('10.13'):
+        raise DictLookupError('system oxford dict requires macOS version 10.13!')
+
+    if not _lxml_installed:
+        raise DictLookupError('lxml not installed!')
+
     cmd = '{}/{}'.format(os.path.dirname(os.path.realpath(__file__)), 'systemdict')
     if os.path.isfile(cmd) and os.access(cmd, os.X_OK):
         proc = subprocess.Popen([cmd, '-t', 'html', '-d', '牛津英汉汉英词典', word],

@@ -2,9 +2,22 @@
 
 多功能、快速、易用的 Alfred 查词扩展。
 
-**请到 release 页面下载最新的 workflow，双击安装，更新 workflow 时请先删除旧的 workflow。**
+**请到 release 页面下载最新的 workflow，双击安装。**
 
 **为了使用方便，请设置取词快捷键。**
+
+## 使用系统内置牛津词典
+
+由于每次更新 macOS 词典格式都会改变，最新版本不保证可用，旧版本支持也将移除。
+
+当前版本仅支持 10.13。10.13 以下系统请使用旧版本 workflow。
+
+先打开 Dictionary.app，安装牛津英汉汉英词典。
+
+然后安装 lxml ：
+
+    command -v pip || sudo easy_install pip
+    sudo pip install lxml
 
 ## 简介
 
@@ -36,15 +49,15 @@
 
 词典代号：
 
-词典                | 代号        
-------------------    | ----------- 
-系统内置牛津词典         | nj, oxford
-朗道本地词典（需下载）    | ld, landau 
-有道在线词典            | yd, youdao  
-爱词霸在线词典          | cb, iciba    
-<del>百度在线词典</del> | <del>bd, baidu</del>   
-必应在线词典            | by, bing    
-海词在线词典            | hc, dictcn
+词典                          | 代号        
+--------------------------- | ----------- 
+系统内置牛津词典（需要 lxml）   | nj, oxford
+朗道本地词典（需下载）         | ld, landau 
+有道在线词典                  | yd, youdao  
+爱词霸在线词典                 | cb, iciba    
+<del>百度在线词典</del>       | <del>bd, baidu</del>   
+必应在线词典                  | by, bing    
+海词在线词典                  | hc, dictcn
 
 注：
 
@@ -80,9 +93,6 @@ update  | 修改配置文件的某些项后需要更新才能生效
         - "say"：发音，目前只支持系统 tts 引擎。
     * "ctrl/alt/shift/cmd/fn": 词典代号，长短皆可。
 * "options": 词典相关的选项，一般不用修改。
-    * "oxford": 牛津词典选项：
-        * "external_cmd": 使用外部程序或 python 接口查词，python 接口只支持纯文本，默认为 "true"。
-        * "parse_html": 使用 html 或纯文本格式作为查询结果，理论上解析 html 更准确，默认为 "true"。
     * "dictcn": 海词词典选项：
         * "wap_page": 是否使用 wap 页面查词，wap 页面信息较少，默认为 "false"。
 * "cache": 缓存相关的设置。
@@ -98,7 +108,3 @@ update  | 修改配置文件的某些项后需要更新才能生效
 ## LICENSE
 
 GPL
-
-## 联系我
-
-<liberize@gmail.com>
