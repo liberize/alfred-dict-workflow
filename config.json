@@ -33,11 +33,6 @@
     // ** don't change these options unless you are aware of what you are doing **
     "options":
     {
-        "oxford":
-        {
-            "external_cmd": true,
-            "parse_html": true
-        },
         "dictcn":
         {
             "wap_page": true
