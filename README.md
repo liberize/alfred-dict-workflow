@@ -39,7 +39,7 @@
 
 ## 截图
 
-![screenshot](https://github.com/liberize/alfred-dict-workflow/raw/master/screenshot.gif)
+![screenshot](http://ww1.sinaimg.cn/large/ded9da26gy1fuchcybxkbg20i70fqnpe.gif)
 
 ## 查词
 
