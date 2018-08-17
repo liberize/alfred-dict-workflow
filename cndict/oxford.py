@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import sys
 import re
 import urllib
 import subprocess
@@ -11,6 +12,7 @@ from utils import *
 
 _lxml_installed = True
 try:
+    sys.path.append('/usr/local/lib/python2.7/site-packages')
     from lxml import etree
 except ImportError:
     _lxml_installed = False
