@@ -33,7 +33,7 @@ def lookup(word, *args):
         raise DictLookupError('failed to find meta tag.')
     description = match.group(1)
 
-    match = re.match(r'^必应词典为您提供.*?的释义{}，(.*?)； 网络释义：.*$'.format(
+    match = re.match(r'^必应词典为您提供.*?的释义{}，(.*?)； (网络释义：.*$)'.format(
                      r'(，美\[(.*?)\])?(，英\[(.*?)\])?'
                      if is_eng else
                      r'，拼音\[(.*)\]'), description)
@@ -52,8 +52,15 @@ def lookup(word, *args):
                     part = match.group(1)
                     for new_item in match.group(2).split('; '):
                         result.append('{} {}'.format(part, new_item))
-    return result
+        result.append(match.group(6))
+        return result
 
+    match2 = re.match(r'^必应词典为您提供.*?的释义，(网络释义：.*$)', description)
+    if match2:
+        result.append(match2.group(1))
+        return result
+
+    return result
 
 def extract(word, item):
     if not is_english(word):
