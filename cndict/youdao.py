@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import urllib
+from urllib.parse import urlencode
+from urllib.request import urlopen
 import json
-from utils import *
+from .utils import *
 
 
 def lookup(word, *args):
@@ -15,12 +16,14 @@ def lookup(word, *args):
         'doctype': 'json',
         'q': word
     }
-    url = '{}?{}'.format('http://fanyi.youdao.com/openapi.do', urllib.urlencode(params))
+    url = '{}?{}'.format('http://fanyi.youdao.com/openapi.do', urlencode(params))
     try:
-        data = urllib.urlopen(url).read()
-        data = convert(json.loads(data))
+        data = urlopen(url).read()
+        data = json.loads(data.decode('utf-8'))
+        data = convert(data)
     except:
-        raise DictLookupError('error to fetch data.')
+        raise
+        # raise DictLookupError('error to fetch data.')
     err_code = data.get('errorCode', -1)
     if err_code != 0:
         err_msg = {
@@ -29,7 +32,7 @@ def lookup(word, *args):
             40: 'language is not supported.',
             50: 'key is invalid.'
         }
-        raise DictLookupError(err_msg.get(err_code, 'unkown error.'))
+        raise DictLookupError(err_msg.get(err_code, 'unknown error.'))
     result = []
     basic = data.get('basic', {})
     if basic:
@@ -52,4 +55,4 @@ def extract(word, item):
 
 def get_url(word):
     params = {'q': word}
-    return '{}?{}'.format('http://dict.youdao.com/search', urllib.urlencode(params))
+    return '{}?{}'.format('http://dict.youdao.com/search', urlencode(params))

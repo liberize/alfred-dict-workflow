@@ -3,17 +3,13 @@
 
 import sys
 import importlib
-from utils import *
+from .utils import *
 
 
 def get_full_name(dictionary):
     dict_name_map = {
-        'nj': 'oxford',
-        'ld': 'landau',
         'yd': 'youdao',
         'cb': 'iciba',
-        'by': 'bing',
-        'hc': 'dictcn'
     }
     return dict_name_map.get(dictionary, dictionary)
 
@@ -23,7 +19,7 @@ def _load_module(dictionary):
     try:
         return importlib.import_module('.' + module_name, __name__)
     except ImportError:
-        pass
+        raise ImportError
 
 
 def lookup(dictionary, *args, **kwargs):

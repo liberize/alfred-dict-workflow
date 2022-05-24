@@ -10,7 +10,7 @@
     // - `by` or `bing`: bing online dictionary, may be slower due to absence of api
     // - `yd` or `youdao`: youdao online dictionary
     // - `hc` or `dictcn`: dict.cn online dictionary, may be slower due to absence of api
-    "default": "nj",
+    "default": "yd",
 
     // keymap for user actions
     // + none: default action when you press enter, available options are

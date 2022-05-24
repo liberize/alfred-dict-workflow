@@ -2,9 +2,11 @@
 # -*- coding: utf-8 -*-
 
 import urllib
+from urllib.parse import urlencode, quote
+from urllib.request import urlopen
 import json
 import re
-from utils import *
+from .utils import *
 
 
 def lookup(word, *args):
@@ -13,9 +15,9 @@ def lookup(word, *args):
         'type': 'json',
         'w': word.lower()
     }
-    url = '{}?{}'.format('http://dict-co.iciba.com/api/dictionary.php', urllib.urlencode(params))
+    url = '{}?{}'.format('http://dict-co.iciba.com/api/dictionary.php', urlencode(params))
     try:
-        data = urllib.urlopen(url).read()
+        data = urlopen(url).read()
         data = convert(json.loads(data))
     except:
         raise DictLookupError('error to fetch data.')
@@ -47,4 +49,4 @@ def extract(word, item):
 
 
 def get_url(word):
-    return 'http://www.iciba.com/' + urllib.quote(word)
+    return 'http://www.iciba.com/' + quote(word)

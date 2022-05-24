@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, division, unicode_literals
+
+import json
 from xml.etree import ElementTree
 import xml.sax.saxutils as saxutils
 import copy
+from six import string_types
 
 
 class Item(object):
@@ -17,7 +20,7 @@ class Item(object):
         self.icon_type = it if it in ['fileicon', 'filetype'] else None
 
         valid = kwargs.get('valid', None)
-        if isinstance(valid, basestring) and valid.lower() == 'no':
+        if isinstance(valid, string_types) and valid.lower() == 'no':
             valid = 'no'
         elif isinstance(valid, bool) and not valid:
             valid = 'no'
@@ -48,6 +51,9 @@ class Item(object):
             sub.text = v
         return item
 
+    def get_dict(self):
+        return {**self.attrb, **self.content}
+
 
 class Feedback(object):
     def __init__(self):
@@ -68,13 +74,8 @@ class Feedback(object):
         return not bool(self.items)
 
     def get(self, unescape=False):
-        ele_tree = ElementTree.Element('items')
-        for item in self.items:
-            ele_tree.append(item.get_xml_element())
-        res = ElementTree.tostring(ele_tree)
-        if unescape:
-            return saxutils.unescape(res)
-        return res
+        data = {'variables': {}, 'items': [item.get_dict() for item in self.items]}
+        return json.dumps(data, ensure_ascii=False)
 
     def output(self):
-        print self.get()
+        print(self.get())

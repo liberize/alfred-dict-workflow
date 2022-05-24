@@ -29,7 +29,7 @@ class Plist(object):
                 for conn in self.__plist['connections'][uid]:
                     self.__branches[conn['destinationuid']] = [conn, None]
                 break
-        for uid, pair in self.__branches.iteritems():
+        for uid, pair in self.__branches.items():
             for obj in self.__plist['objects']:
                 if uid == obj['uid']:
                     pair[1] = obj

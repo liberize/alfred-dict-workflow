@@ -43,7 +43,7 @@ def query(dictionary, word):
 
     result = cndict.lookup(dictionary, word, **options)
     if result:
-        result = [item.decode('utf-8') for item in result]
+        # result = [item.decode('utf-8') for item in result]
         if enable_cache:
             dict_cache.set(cache_name, result, cache_expire)
         return result
@@ -88,11 +88,11 @@ elif argc == 2:
         feedback.add_item(title='Internal commands',
                           subtitle=u'Press "↩" to execute selected internal command',
                           valid=False)
-        for cmd, desc in internal_cmds.iteritems():
+        for cmd, desc in internal_cmds.items():
             feedback.add_item(title=cmd, subtitle=desc,
                               arg=':{}'.format(cmd), valid=True)
     else:
-        arg = u'{} @ {}'.format(word.decode('utf-8'), dictionary.decode('utf-8'))
+        arg = u'{} @ {}'.format(word, dictionary)
         try:
             result = query(dictionary, word)
             if result:
@@ -106,9 +106,9 @@ elif argc == 2:
             else:
                 feedback.add_item(title='Dict - Lookup Word',
                                   subtitle=u'Word "{}" doesn\'t exist in dict "{}".'.format(
-                                           word.decode('utf-8'), dictionary.decode('utf-8')),
+                                           word, dictionary),
                                   arg=arg, valid=True)
-        except cndict.DictLookupError, e:
+        except cndict.DictLookupError as e:
             feedback.add_item(title=word, subtitle='Error: {}'.format(e), arg=arg, valid=True)
 else:
     sys.exit(1)

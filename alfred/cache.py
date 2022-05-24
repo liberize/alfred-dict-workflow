@@ -20,7 +20,7 @@ class Cache(object):
         if not os.path.exists(self.__cache_dir):
             os.makedirs(self.__cache_dir)
         # convert to md5, more safe for file name
-        md5_name = hashlib.md5(name).hexdigest()
+        md5_name = hashlib.md5(name.encode('utf-8')).hexdigest()
         return os.path.join(self.__cache_dir, '{}.json'.format(md5_name))
 
     def __get_content(self, name):

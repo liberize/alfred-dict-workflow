@@ -33,17 +33,17 @@ if match:
     if command == 'clean':
         dict_cache = Cache(os.path.join(alfred.get_cache_dir(), plist.get_bundleid()))
         dict_cache.clean()
-        print 'Cache has been cleaned.'
+        print('Cache has been cleaned.')
     elif command == 'config':
         shell_exec('open {}', os.path.abspath('./config.json'))
-        print 'Please edit config file in your editor.'
+        print('Please edit config file in your editor.')
     elif command == 'update':
         config_data = open(os.path.abspath('./config.json')).read()
         config = json.loads(re.sub(r'//.*', '', config_data))
         plist.set_keyword(config['keyword'])
         plist.set_keymap(config['keymap'])
         plist.write(os.path.abspath('./info.plist'))
-        print 'Config has been successfully updated.'
+        print('Config has been successfully updated.')
 else:
     match = re.match(r'^(.*?) @ (.*?) (\| (.*) )?([@|>]) (.*?)$', sys.argv[1])
     if match:
@@ -63,7 +63,7 @@ else:
             if item:
                 definition = cndict.extract(dictionary, word, item) or item
                 shell_exec('printf {} | pbcopy', definition, True)
-                print 'Definition copied to clipboard.'
+                print('Definition copied to clipboard.')
             elif command == 'say':
                 shell_exec('say {}', word)
             elif command == 'open':

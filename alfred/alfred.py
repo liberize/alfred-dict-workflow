@@ -15,7 +15,7 @@ class Alfred(object):
         if match:
             return int(match.group(1))
         proc = subprocess.Popen("ps ax -o command | grep '[A]lfred'", shell=True, stdout=subprocess.PIPE)
-        match = re.search(r'/Alfred (\d)\.app/', proc.stdout.read())
+        match = re.search(r'/Alfred (\d)\.app/', proc.stdout.read().decode('utf-8'))
         if match:
             return int(match.group(1))
         return 2

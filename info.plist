@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>bundleid</key>
-	<string>me.liberize.dict</string>
+	<string>callmemhz.dict</string>
 	<key>category</key>
 	<string>Productivity</string>
 	<key>connections</key>
@@ -138,7 +138,7 @@
 		</array>
 	</dict>
 	<key>createdby</key>
-	<string>liberize</string>
+	<string>callmemhz</string>
 	<key>description</key>
 	<string>Lookup word in multiple dictionaries.</string>
 	<key>disabled</key>
@@ -155,7 +155,7 @@
 				<key>escaping</key>
 				<integer>100</integer>
 				<key>script</key>
-				<string>python ./actions.py "{query} &gt; open"</string>
+				<string>python3 ./actions.py "{query} &gt; open"</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
@@ -174,7 +174,7 @@
 				<key>escaping</key>
 				<integer>100</integer>
 				<key>script</key>
-				<string>python ./actions.py "{query} @ yd"</string>
+				<string>python3 ./actions.py "{query} @ yd"</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
@@ -193,7 +193,7 @@
 				<key>escaping</key>
 				<integer>100</integer>
 				<key>script</key>
-				<string>python ./actions.py "{query} @ cb"</string>
+				<string>python3 ./actions.py "{query} @ cb"</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
@@ -276,7 +276,7 @@
 				<key>runningsubtext</key>
 				<string>Please wait ...</string>
 				<key>script</key>
-				<string>python ./query.py "{query}"</string>
+				<string>python3 ./query.py "{query}"</string>
 				<key>subtext</key>
 				<string>Lookup word in multiple dictionaries.</string>
 				<key>title</key>
@@ -290,63 +290,6 @@
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
 			<string>C6E96055-A9FC-4B3E-BE9B-8D9B6B7ED15F</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>concurrently</key>
-				<false/>
-				<key>escaping</key>
-				<integer>100</integer>
-				<key>script</key>
-				<string>python ./actions.py "{query} @ hc"</string>
-				<key>type</key>
-				<integer>0</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>9A8F49BF-1304-4AC1-BA87-2BCF23C6D9C3</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>concurrently</key>
-				<false/>
-				<key>escaping</key>
-				<integer>100</integer>
-				<key>script</key>
-				<string>python ./actions.py "{query} @ nj"</string>
-				<key>type</key>
-				<integer>0</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>89A1C4A1-2813-4CEC-B312-B728E54B5D59</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>concurrently</key>
-				<false/>
-				<key>escaping</key>
-				<integer>100</integer>
-				<key>script</key>
-				<string>python ./actions.py "{query} @ by"</string>
-				<key>type</key>
-				<integer>0</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>3E2DFED0-0EEB-4957-ADB0-A804CBBE3747</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
