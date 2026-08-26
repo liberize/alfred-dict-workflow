@@ -29,7 +29,7 @@ def lookup(word, *args):
             40: 'language is not supported.',
             50: 'key is invalid.'
         }
-        raise DictLookupError(err_msg.get(err_code, 'unkown error.'))
+        raise DictLookupError(err_msg.get(err_code, 'unknown error.'))
     result = []
     basic = data.get('basic', {})
     if basic:
